@@ -39,7 +39,10 @@ $site_title = $row_general_settings->site_title;
 	<script src="js/ie.js"></script>
 	<script type="text/javascript" src="js/sweat_alert.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<style>.swal2-popup .swal2-styled.swal2-confirm{background-color: #28a745;}</style>
+	<style>
+        .swal2-popup .swal2-styled.swal2-confirm{background-color: #28a745;}
+
+    </style>
 </head>
 <body class="is-responsive">
 <?php
