@@ -9,7 +9,8 @@ if(!isset($_SESSION['seller_user_name'])){
 echo "<script>window.open('../login','_self')</script>";
 	
 }
-
+$get_payment_settings = $db->select("payment_settings");
+$min_proposal_price = $row_payment_settings->min_proposal_price;
 $login_seller_user_name = $_SESSION['seller_user_name'];
 
 $select_login_seller = $db->select("sellers",array("seller_user_name" => $login_seller_user_name));
@@ -105,7 +106,7 @@ $proposal_title = $row_proposals->proposal_title;
 
 <span class="input-group-addon font-weight-bold"> <?= $s_currency; ?> </span>
 
-<input type="number" name="amount" class="form-control" min="5" placeholder="5 Minimum" required="">
+<input type="number" name="amount" class="form-control" min="<?php echo $min_proposal_price?>" placeholder="<?php echo $min_proposal_price?> Minimum" required="">
 
 </div>
 

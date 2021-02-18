@@ -19,21 +19,27 @@ function get_proposals($filter_type){
       $search_query = $_SESSION['search_query'];
       $s_value = "%$search_query%";
       $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_title like :proposal_title AND proposal_status='active'",array(":proposal_title"=>$s_value));
-   }elseif($filter_type == "category"){
-      if(isset($_SESSION['cat_id'])){
+   }
+   elseif($filter_type == "category"){
+   if(isset($_SESSION['cat_id'])){
       $session_cat_id = $_SESSION['cat_id'];
       $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_cat_id=:cat_id AND proposal_status='active'",array("cat_id"=>$session_cat_id));
-      }elseif(isset($_SESSION['cat_child_id'])){
+      }
+   elseif(isset($_SESSION['cat_child_id'])){
       $session_cat_child_id = $_SESSION['cat_child_id'];
       $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_child_id=:child_id AND proposal_status='active'",array("child_id"=>$session_cat_child_id));
       }
-   }elseif ($filter_type == "featured") {
+   }
+   elseif ($filter_type == "featured") {
       $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_featured='yes' AND proposal_status='active'");
-   }elseif ($filter_type == "top") {
+   }
+   elseif ($filter_type == "top") {
       $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where level_id='4' and proposal_status='active'");
-   }elseif ($filter_type == "random") {
+   }
+   elseif ($filter_type == "random") {
       $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_status='active' order by rand()");
-   }elseif ($filter_type == "tag") {
+   }
+   elseif ($filter_type == "tag") {
       if(isset($_SESSION['tag'])){
          $tag = $_SESSION['tag'];
          $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_tags LIKE :tag AND proposal_status='active'",array("tag"=>"%$tag%"));

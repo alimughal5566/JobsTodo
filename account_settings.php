@@ -4,6 +4,11 @@
   if(!isset($_SESSION['seller_user_name'])){
     echo "<script>window.open('login','_self')</script>";
   }
+$get_payment_settings = $db->select("payment_settings");
+$row_payment_settings = $get_payment_settings->fetch();
+$enable_paypal = $row_payment_settings->enable_paypal;
+$enable_payoneer = $row_payment_settings->enable_payoneer;
+$enable_coinpayments = $row_payment_settings->enable_coinpayments;
 ?>
 
 <?php if($enable_paypal == "yes"){ ?>
@@ -52,6 +57,8 @@ if($paymentGateway == 1){
 } 
 
 ?>
+<?php
+    if($enable_payoneer == 1){  ?>
 <hr>
 <h5 class="mb-4"> <?= $lang['settings']['payoneer_heading']; ?> </h5>
 <form method="post" class="clearfix mb-3">
@@ -65,6 +72,7 @@ if($paymentGateway == 1){
     <?= $lang['button']['change_payoneer_email']; ?>
   </button>
 </form>
+<?php } ?>
 <?php 
 if(isset($_POST['submit_payoneer_email'])){
   $seller_payoneer_email = strip_tags($input->post('seller_payoneer_email'));
@@ -131,6 +139,7 @@ if(isset($_POST['submit_payoneer_email'])){
 }
 
 ?>
+   <?php if($enable_coinpayments == 1){ ?>
 <hr>
 <h5 class="mb-4"> <?= $lang['settings']['bitcoin_wallet_heading']; ?> </h5>
 <form method="post" class="clearfix mb-3">
@@ -145,6 +154,7 @@ if(isset($_POST['submit_payoneer_email'])){
     <?= $lang['button']['update_wallet_address']; ?>
   </button>
 </form>
+<?php }?>
 <?php
   if(isset($_POST['submit_wallet'])){
   $seller_wallet = $input->post('seller_wallet');

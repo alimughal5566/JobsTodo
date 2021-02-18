@@ -206,7 +206,23 @@
               </div>
             </div>
             <!--- form-group row Ends --->
-
+            <div class="form-group row">
+                  <!--- form-group row Starts --->
+                  <label class="col-md-3 control-label"> Featured Proposal Listing Fee : </label>
+                  <div class="col-md-6">
+                      <div class="input-group">
+                          <!--- input-group Starts --->
+                          <span class="input-group-addon">
+                  <b><?= $s_currency; ?></b>
+                  </span>
+                          <input type="number" name="featured_fee" class="form-control" value="<?= $featured_fee; ?>" required="">
+                      </div>
+                      <!--- input-group Ends --->
+                      <small class="form-text text-muted">
+                          Price you want to charge sellers in order to get their proposals featured
+                      </small>
+                  </div>
+              </div>
             <div class="form-group row processing-feeType">
               <label class="col-md-3 control-label"> Processing Fee : </label>
               <div class="col-md-3">
@@ -232,6 +248,25 @@
               </div>
             </div>
             <!--- form-group row Ends --->
+            <div class="form-group row">
+                  <!--- form-group row Starts --->
+                  <label class="col-md-3 control-label"> Approval Of Proposals : </label>
+                  <div class="col-md-6">
+                      <div class="input-group">
+                          <select name="proposal_approvals" onchange="proposal_approvals(this.value)" class="form-control" required="">
+<!--                              <option value="yes" --><?php //if($featured_proposal_while_creating == 1){ echo "selected"; } ?><!--> Yes </option>-->
+                              <option value="yes"> Yes </option>
+                              <option value="no" > No </option>
+                          </select>
+                      </div>
+                  </div>
+                <script>
+                    function proposal_approvals(value){
+                        let data=value
+                        alert(value);
+                    }
+                </script>
+              </div>
             <div class="form-group row">
               <!--- form-group row Starts --->
               <label class="col-md-3 control-label"></label>

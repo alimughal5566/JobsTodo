@@ -27,69 +27,8 @@ $iban_number = escape($row_settings->iban_number);
 $swift_code = escape($row_settings->swift_code);
 
 ?>
-<hr>
-<h5 class="mb-4"> Moneygram For Withdrawing Revenue </h5>
-<?php 
-$form_errors = Flash::render("moneygram_errors");
-if(is_array($form_errors)){
-?>
-<div class="alert alert-danger"><!--- alert alert-danger Starts --->
-  <ul class="list-unstyled mb-0">
-    <?php $i = 0; foreach ($form_errors as $error) { $i++; ?>
-    <li class="list-unstyled-item"><?= escape($i); ?>. <?= escape(ucfirst($error)); ?></li>
-    <?php } ?>
-  </ul>
-</div><!--- alert alert-danger Ends --->
-<?php } ?>
-<form method="post" enctype="multipart/form-data" class="clearfix mb-3">
-  <div class="form-group row">
-    <label class="col-md-4 col-form-label"> Id Type </label>
-    <div class="col-md-8">
-      <select name="id_type" class="form-control" required="">
-        <?php
-          $moneygram_id_types = explode(",", $moneygram_id_types);
-          foreach($moneygram_id_types as $type){
-        ?>
-        <option value="<?= escape('$type'); ?>" <?php if($id_type == $type){echo "selected";} ?>><?= escape($type); ?></option>
-        <?php } ?>
-      </select>
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-md-4 col-form-label"> Id File </label>
-    <div class="col-md-8">
-      <input type="file" name="id_file" class="form-control" id="cover" <?= (empty($id_file)) ? 'required' : ''; ?>>
-      <small class="text-muted">Please Upload Id Front And Back In Zip Format.</small>
-      <?= (empty($id_file)) ? '' : '<p class="mb-0 small"><a href="plugins/paymentGateway/id_files/'.$id_file.'" class="text-primary" download><i class="fa fa-download"></i> '.$id_file.'</a></p>'; ?>
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-md-4 col-form-label"> Full Name </label>
-    <div class="col-md-8">
-      <input type="text" name="full_name" value="<?= $full_name; ?>" class="form-control" placeholder="Full Name" required="">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-md-4 col-form-label"> Address/Location </label>
-    <div class="col-md-8">
-      <input type="text" name="address" class="form-control" value="<?= $address; ?>" placeholder="Address" required="">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-md-4 col-form-label"> Mobile No </label>
-    <div class="col-md-8">
-      <input type="number" name="mobile_no" class="form-control" value="<?= $mobile_no; ?>" placeholder="Mobile No" required="">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-md-4 col-form-label"> Preferred Currency </label>
-    <div class="col-md-8">
-      <input type="text" name="preferred_currency" class="form-control" value="<?= $preferred_currency; ?>" required="">
-    </div>
-  </div>
-  <button type="submit" name="update_moneygram" class="btn btn-success float-right">Update Moneygram Details</button>
-</form>
-<hr>
+
+
 <h5 class="mb-4"> Bank Transfer For Withdrawing Revenue </h5>
 <?php 
 $form_errors = Flash::render("bank_details_errors");
