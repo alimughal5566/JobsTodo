@@ -249,25 +249,6 @@
             </div>
             <!--- form-group row Ends --->
             <div class="form-group row">
-                  <!--- form-group row Starts --->
-                  <label class="col-md-3 control-label"> Approval Of Proposals : </label>
-                  <div class="col-md-6">
-                      <div class="input-group">
-                          <select name="proposal_approvals" onchange="proposal_approvals(this.value)" class="form-control" required="">
-<!--                              <option value="yes" --><?php //if($featured_proposal_while_creating == 1){ echo "selected"; } ?><!--> Yes </option>-->
-                              <option value="yes"> Yes </option>
-                              <option value="no" > No </option>
-                          </select>
-                      </div>
-                  </div>
-                <script>
-                    function proposal_approvals(value){
-                        let data=value
-                        alert(value);
-                    }
-                </script>
-              </div>
-            <div class="form-group row">
               <!--- form-group row Starts --->
               <label class="col-md-3 control-label"></label>
               <div class="col-md-6">
