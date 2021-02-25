@@ -1,4 +1,15 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<style>
+    .qa-wrap {
+        border-bottom: 1px solid #c3afaf;
+    }
+
+    .qa-wrap:last-child {
+        border-bottom: none;
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+</style>
 <div class="table-responsive box-table mt-3">
     <table class="table table-bordered">
         <thead>
@@ -37,7 +48,7 @@
                 <tr>
                     <td>
                         <a href="order_details?order_id=<?= $order_id; ?>" class="make-black">
-                            <img class="order-proposal-image" src="<?= $proposal_img1; ?>"/>
+                            <img class="order-proposal-image" alt="" src="<?= $proposal_img1; ?>"/>
                             <p class="order-proposal-title"><?= $proposal_title; ?></p>
                         </a>
                     </td>
@@ -74,11 +85,14 @@
 
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg ">
         <div class="modal-content">
             <div class="row ">
-                <div class="col-md-12" >
-                    <div class="proposal_title p-3"></div>
+                <div class="col-md-12 ">
+                    <h1 class=" mx-3 mt-4 mb-0">Question &amp; Answers</h1>
+                    <div class="proposal_title p-3 pt-1">
+
+                    </div>
 
                 </div>
             </div>
@@ -110,16 +124,16 @@
                 result = JSON.parse(data);
 
                 // var a=0
-                if(result && result.length > 0) {
+                if (result && result.length > 0) {
                     $('.proposal_title').empty();
                     for (i = 0; i < result.length; i++) {
-                     row = `
-                    <h5 >Question: ${result[i].title}</h5>
-                    <p style="border-bottom: 1px solid black">Answer: ${result[i].answer}</p>`;
-                    $('.proposal_title').append(row);
-                }
+                        row = `<div class='px-3 pb-2 mb-2 qa-wrap'>
+                                    <h5 class="mb-1">Q: ${result[i].title}</h5>
+                                    <p class="my-1">A: ${result[i].answer}</p></div>`;
+                        $('.proposal_title').append(row);
+                    }
 
-                      }else {
+                } else {
                     $('.proposal_title').empty();
                     let row = `
                     <h4 >NO RESULT FOUND</h4>`;
