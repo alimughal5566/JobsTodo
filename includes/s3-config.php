@@ -188,6 +188,9 @@ function getImageUrl2($table,$field,$key){
 	if($field == "seller_cover_image"){
 		$folder = "cover_images";
 	}
+    if($field == "passport_id_image"){
+        $folder = "passport_or_id";
+    }
 
 	$select_table = $db->select("$table",["$field"=>$key]);
 	$row_table = $select_table->fetch();
@@ -205,6 +208,9 @@ function getImageUrl2($table,$field,$key){
 	}
 
 }
+
+
+
 
 // Connect to AWS
 try {

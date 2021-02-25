@@ -5,6 +5,7 @@ require_once("functions/email.php");
 if(!isset($_SESSION['seller_user_name'])){
 	echo "<script>window.open('login','_self')</script>";
 }
+
 $login_seller_user_name = $_SESSION['seller_user_name'];
 $select_login_seller = $db->select("sellers",array("seller_user_name" => $login_seller_user_name));
 $row_login_seller = $select_login_seller->fetch();
@@ -15,6 +16,9 @@ $login_seller_paypal_email = $row_login_seller->seller_paypal_email;
 $login_seller_payoneer_email = $row_login_seller->seller_payoneer_email;
 $login_seller_image = $row_login_seller->seller_image;
 $login_seller_cover_image = $row_login_seller->seller_cover_image;
+
+$login_seller_passport_id_image = $row_login_seller->passport_id_image;
+$login_seller_passport_id_image_s3 = $row_login_seller->seller_passport_id_image_s3;
 
 $login_seller_image_s3 = $row_login_seller->seller_image_s3;
 $login_seller_cover_image_s3 = $row_login_seller->seller_cover_image_s3;
@@ -114,8 +118,11 @@ if($lang_dir == "right"){
 			<div class="card">
 				<div class="card-body">
 					<div class="tab-content">
+                        <?php require_once("profile_health_html.php") ?>
+
 					<div id="profile_settings" class="tab-pane fade <?php if(!isset($_GET['profile_settings']) and !isset($_GET['account_settings'])){ echo "show active"; } if(isset($_GET['profile_settings'])){ echo "show active"; } ?>">
 						<h2 class="mb-4"><?= $lang["titles"]["settings"]["profile_settings"]; ?></h2>
+
                   <?php require_once("profile_settings.php") ?>
 					</div>
 					<div id="account_settings" class="tab-pane fade <?php if(isset($_GET['account_settings'])){ echo "show active"; } ?>">

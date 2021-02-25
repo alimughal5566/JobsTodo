@@ -7,7 +7,8 @@ $dir = str_replace("admin\includes", '',$dir);
 include("$dir/includes/config.php");
 
 if(empty(DB_HOST) and empty(DB_USER) and empty(DB_NAME)){
-	echo "<script>window.open('../install.php','_self'); </script>";
+//	echo "<script>window.open('../install.php','_self'); </script>";
+	echo "Please configure your database credentials in includes/config.php file";
 	exit();
 }else{
 

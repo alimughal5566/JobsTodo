@@ -145,6 +145,9 @@ $login_seller_id = $row_login_seller->seller_id;
 									
 				</li>
 
+
+
+
 			</ul>
 
 			<div class="tab-content">
@@ -180,6 +183,7 @@ $login_seller_id = $row_login_seller->seller_id;
 					<?php require_once("manage_orders/order_all_buying.php") ?>
 
 				</div>
+
 
 			</div>
 

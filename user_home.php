@@ -226,7 +226,8 @@
       </div>
       <div class="row">
         <?php
-          $get_proposals = $db->query("select * from proposals where proposal_status='active' order by rand() LIMIT 0,8");
+//          $get_proposals = $db->query("select * from proposals where proposal_status='active' order by rand() LIMIT 0,8");
+          $get_proposals = $db->query("SELECT * FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >=65 AND proposals.proposal_status='active' order by rand() LIMIT 0,8");
           $count_proposals = $get_proposals->rowCount();
           if($count_proposals == 0){
               echo "
@@ -235,6 +236,7 @@
               </div>";
           }
           while($row_proposals = $get_proposals->fetch()){
+
           $proposal_id = $row_proposals->proposal_id;
           $proposal_title = $row_proposals->proposal_title;
           $proposal_price = $row_proposals->proposal_price;

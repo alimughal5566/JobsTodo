@@ -75,6 +75,9 @@ $count_seller = $select_seller->rowCount();
     <div class="col-md-8">
       <div class="row">
         <div class="col-md-12">
+
+
+
           <div class="card mt-4 mb-4 rounded-0">
             <div class="card-body">
               <h2>
@@ -89,12 +92,12 @@ $count_seller = $select_seller->rowCount();
         $get_proposals = $db->select("proposals",array("proposal_seller_id" => $seller_id,"proposal_status" => "active"));
         $count_proposals = $get_proposals->rowCount();
         if($count_proposals == 0){
-        ?>  
+        ?>
         <div class="col-md-12">
           <?php if(isset($_SESSION['seller_user_name']) AND $seller_user_name == $_SESSION['seller_user_name']) { ?>
           <h3 class=" text-center mb-5 p-2">
-          <i class="fa fa-smile-o"></i> 
-          
+          <i class="fa fa-smile-o"></i>
+
           <?php
             $trans = $lang['user_profile']['login_no_proposals'];
             $trans = str_replace("{user_name}",$get_seller_user_name, $trans);
@@ -105,7 +108,7 @@ $count_seller = $select_seller->rowCount();
           </h3>
           <?php }else{ ?>
             <h3 class="text-center mb-5 p-2">
-              <i class="fa fa-smile-o"></i> 
+              <i class="fa fa-smile-o"></i>
               <?= str_replace('{user_name}',$get_seller_user_name,$lang['user_profile']['no_proposals']); ?>
             </h3>
           <?php } ?>
@@ -160,9 +163,52 @@ $count_seller = $select_seller->rowCount();
         $show_favorite_class = "proposal-unfavorite";
         }
         ?>
+<!--                profile data-->
+            <div class="card rounded-0">
+                <div class="card-body p-0">
+                    <div class="row pl-3 pr-3 pb-2 pt-2 mt-4">
+                        <div class="col-md-6 text-center border-box">
+                            <?php
+                            $count_orders = $db->count("orders",array("seller_id" => $proposal_seller_id, "order_status" => 'completed'));
+                            ?>
+                            <img width="" src="images/comp/completed.png" alt="completed">
+                            <h5 class="text-muted pt-2"> <?= $lang["dashboard"]['orders_completed']; ?></h5>
+                            <h3 class="text-success"><?= $count_orders; ?></h3>
+                        </div>
+                        <div class="col-md-6 text-center border-box">
+                            <?php $count_orders = $db->count("orders",array("seller_id"=>$proposal_seller_id,"order_status"=>'delivered')); ?>
+                            <img width="" src="images/comp/box.png" alt="box">
+                            <h5 class="text-muted pt-2"><?= $lang["dashboard"]['delivered_orders']; ?></h5>
+                            <h3 class="text-success"><?= $count_orders; ?></h3>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="row pl-3 pr-3 pb-2 pt-2">
+                        <div class="col-md-6 text-center border-box">
+                            <?php
+                            $count_orders = $db->count("orders",array("seller_id" => $proposal_seller_id, "order_active" => 'yes'));
+                            ?>
+                            <img width="" src="images/comp/debt.png" alt="debt">
+                            <h5 class="text-muted pt-2"> <?= $lang["dashboard"]['sales_in_queue']; ?></h5>
+                            <h3 class="text-success"><?= $count_orders; ?></h3>
+                        </div>
+                        <div class="col-md-6 text-center border-box">
+                            <?php $count_orders = $db->count("orders",array("buyer_id" => $proposal_seller_id, "order_active" => 'yes')); ?>
+                            <img width="" src="images/comp/shopping-bags.png" alt="shopping-bags">
+                            <h5 class="text-muted pt-2"> <?= $lang["dashboard"]['open_purchases']; ?></h5>
+                            <h3 class="text-success"><?= $count_orders; ?> </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--                profile data-->
+
         <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
           <?php require("includes/proposals.php"); ?>
         </div>
+
+
        <?php } ?>
        <?php if(isset($_SESSION['seller_user_name']) AND $_SESSION['seller_user_name'] == $get_seller_user_name AND $count_proposals > 0) { ?>
        <a href="proposals/create_proposal" class="col-lg-4 col-md-6 col-sm-6 mb-3">

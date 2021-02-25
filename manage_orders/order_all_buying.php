@@ -4,12 +4,13 @@
 
 		<thead>
 			
-			<tr> 
+			<tr>
 
-				<th><?= $lang['th']['order_summary']; ?></th>
-				<th><?= $lang['th']['order_date']; ?></th>
-				<th><?= $lang['th']['due_on']; ?></th>
-				<th><?= $lang['th']['total']; ?></th>
+                <th>FAQ Answers</th>
+                <th><?= $lang['th']['order_summary']; ?></th>
+                <th><?= $lang['th']['order_date']; ?></th>
+                <th><?= $lang['th']['due_on']; ?></th>
+                <th><?= $lang['th']['total']; ?></th>
 				<th><?= $lang['th']['status2']; ?></th>
 
 			</tr>
@@ -68,6 +69,7 @@
 				<td><?= $order_date; ?></td>
 				<td><?= $order_due; ?></td>
 				<td><?= showPrice($order_price); ?></td>
+
 				<td><button class="btn btn-success"><?= ucwords($order_status); ?></button></td>
 
 			</tr>
@@ -90,4 +92,15 @@
 
 ?>
 
+</div>
+
+
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            ...
+        </div>
+    </div>
 </div>

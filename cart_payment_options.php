@@ -65,6 +65,9 @@ $count_cart = $select_cart->rowCount();
 $sub_total = 0;
 while($row_cart = $select_cart->fetch()){
 	$proposal_price = $row_cart->proposal_price;
+	$proposal_id = $row_cart->proposal_id;
+	$seller_id = $row_cart->seller_id;
+	$order_id = $row_cart->order_id;
 	$proposal_qty = $row_cart->proposal_qty;
 	$cart_extras = $db->select("cart_extras",array("seller_id"=>$login_seller_id,"proposal_id"=>$row_cart->proposal_id));
 	while($extra = $cart_extras->fetch()){
@@ -298,13 +301,100 @@ if($seller_verification != "ok"){
 					<hr class="processing-fee">
 					<p>Total <span class="float-right font-weight-bold total-price"><?= showPrice($total); ?></span></p>
 					<hr>
-					<?php if($current_balance >= $sub_total){ ?>
+					<?php /*if($current_balance >= $sub_total){ */?><!--
 					<form action="shopping_balance" method="post" id="shopping-balance-form">
 					<button type="submit" name="cart_submit_order" class="btn btn-lg btn-success btn-block" onclick="return confirm('Do you really want to order proposal/services from your shopping balance?')">
-					<?= $lang['button']['pay_with_shopping']; ?>
+					<?/*= $lang['button']['pay_with_shopping']; */?>
 					</button>
 					</form>
-					<?php } ?>
+
+                    --><?php /*} */?>
+
+<!--                    FAQ modal-->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Proceed To FAQS </button>
+                    <form action="shopping_balance" method="post" id="shopping-balance-form">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">You Have To Answer These Questions Of Service Provider</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+<!--                                <form action="shopping_balance" method="post" id="shopping-balance-form">-->
+                                <?php
+
+                                ?>
+                                    <div class="modal-body">
+                                        <?php
+                                        $get_faq = $db->select("proposals_faq",array("proposal_id"=>$proposal_id));
+//                                        print_r($get_faq);
+                                        $count_faq = $get_faq->rowCount();
+                                        $get_proposal = $db->select("proposals",array("proposal_id"=>$proposal_id));
+                                        $get_proposal_saller_id = $get_proposal->fetch();
+                                        $get_saller_data = $get_proposal_saller_id->proposal_seller_id;
+
+                                        ?>
+                                        <?php if($count_faq > 0){ ?>
+                                            <section class="faq-wrap"><!--- faq-wrap Starts --->
+<!--                                                <ul class="faq-list">-->
+                                                <div class="form-group">
+                                                    <?php
+                                                    while($row_faq = $get_faq->fetch()){
+                                                        $id = $row_faq->id;
+                                                        $title = $row_faq->title;
+                                                        $content = $row_faq->content;
+                                                        $is_required = $row_faq->is_required;
+                                                        ?>
+<!--                                                        <li>-->
+<!--                                                            <h3 class="text-dark">--><?//= $title; ?><!-- <i class="fa fa-arrow-circle-down" aria-hidden="true"></i></h3>-->
+<!--                                                            <p>--><?//= $content; ?><!--</p>-->
+<!--                                                        </li>-->
+                                                        <input type="hidden" value="<?=$title ?>" name="titles[]">
+                                                        <input type="hidden" value="<?=$id ?>" name="titleid[]">
+                                                        <input type="hidden" value="<?=$get_saller_data ?>" name="saler_id">
+                                                        <input type="hidden" value="<?=$order_id ?>" name="order_id">
+                                                            <label for="message-text" class="col-form-label"><h6>Title:<?= $title; ?></h6></label>
+                                                             <p>Description:<?= $content; ?></p>
+                                                            <textarea class="form-control" id="message-text" name="messages[]"  <?= $is_required; ?>></textarea>
+                                                        <hr>
+
+                                                    <?php } ?>
+                                                </div>
+<!--                                                </ul>-->
+                                            </section><!--- faq-wrap Ends --->
+                                        <?php } ?>
+                                        <!--<div class="form-group">
+                                            <label for="message-text" class="col-form-label">Message:</label>
+                                            <textarea class="form-control" id="message-text"></textarea>
+                                        </div>-->
+                                </div>
+                                <div class="modal-footer">
+<!--                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--                                    <button type="button" class="btn btn-primary">Send message</button>-->
+                                    <?php if($current_balance >= $sub_total){ ?>
+                                            <button type="submit" name="cart_submit_order" class="btn btn-lg btn-success btn-block" onclick="return confirm('Do you really want to order proposal/services from your shopping balance?')">
+                                                <?= $lang['button']['pay_with_shopping']; ?>
+                                            </button>
+
+                                    <?php } ?>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+<!--                    FAQ modal-->
+
+
+
+
+
+
+
+
 
 					<?php if($enable_paypal == "yes"){ ?>
 						<div id="paypal-form" class="paypal-button-container"></div>

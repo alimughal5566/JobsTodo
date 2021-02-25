@@ -443,6 +443,7 @@ $lang['label']['city'] = "City";
 $lang['label']['main_language'] = "Main Conversational Language";
 $lang['label']['profile_photo'] = "Profile Photo";
 $lang['label']['cover_photo'] = "Cover Photo";
+$lang['label']['id_passport'] = "ID / Passport";
 $lang['label']['headline'] = "Headline";
 $lang['label']['description'] = "Description";
 

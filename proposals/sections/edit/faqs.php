@@ -83,16 +83,19 @@ $content = $row_faq->content;
 <div class="form-group mb-2">
 	
 <textarea name="content" rows="3" placeholder="Faq Content" class="form-control form-control-sm"></textarea>
+    <div class="form-group ml-4 mt-1 mb-0">
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input"  name="is_required"  value="required" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Faq is required.</label>
+        </div>
+        <button type="submit" class="btn btn-success btn-sm float-right">Insert</button>
 
+        <div class="clearfix"></div>
+
+    </div>
 </div>
 
-<div class="form-group mb-0">
 
-<button type="submit" class="btn btn-success btn-sm float-right">Insert</button>
-
-<div class="clearfix"></div>
-
-</div>
 
 </form>	
 

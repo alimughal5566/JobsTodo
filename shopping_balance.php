@@ -10,7 +10,9 @@ $login_seller_user_name = $_SESSION['seller_user_name'];
 $select_login_seller = $db->select("sellers",array("seller_user_name" => $login_seller_user_name));
 $row_login_seller = $select_login_seller->fetch();
 $login_seller_id = $row_login_seller->seller_id;
-
+$select_login_buyer=$db->select("my_buyers",array("seller_id" => $login_seller_id));
+$row_login_buyer = $select_login_buyer->fetch();
+$login_buyer_id = $row_login_buyer->buyer_id;
 if(isset($_POST['checkout_submit_order'])){
 	$proposal_id = $_SESSION['c_proposal_id'];
 	$proposal_qty = $_SESSION['c_proposal_qty'];
@@ -36,6 +38,8 @@ if(isset($_POST['checkout_submit_order'])){
 
 
 if(isset($_POST['cart_submit_order'])){
+
+
 	$select_cart =  $db->select("cart",array("seller_id" => $login_seller_id));
 	$count_cart = $select_cart->rowCount();
 	
@@ -88,6 +92,9 @@ if(isset($_POST['cart_submit_order'])){
       
    }
 
+
+
+
 	$amount = $sub_total;
 	$update_balance = $db->query("update seller_accounts set used_purchases=used_purchases+:plus,current_balance=current_balance-:minus where seller_id='$login_seller_id'",array("plus"=>$amount,"minus"=>$amount));
 	if($update_balance){
@@ -96,7 +103,29 @@ if(isset($_POST['cart_submit_order'])){
 		$_SESSION['method'] = "shopping_balance";
 		echo "<script>window.open('order','_self');</script>";
 	}
+
+
+
+    $messages=$_POST['messages'];
+    $titles=$_POST['titles'];
+    $titleid=$_POST['titleid'];
+    $seller_id=$_POST['saler_id'];
+    $order_id=$_POST['order_id'];
+
+
+    foreach ($messages as $key=>$message){
+
+        $db->insert("faq_answers",array("answer"=>$message,
+            "sender_id"=>$login_seller_id, "order_id"=>$order_id,"proposal_id"=>$proposal_id,"faq_id"=>$titleid[$key],"title"=>$titles[$key],
+            "receiver_id"=>$seller_id));
+    }
+
+
 }
+
+
+
+
 
 if(isset($_POST['pay_featured_proposal_listing'])){
 	$proposal_id = $_SESSION['f_proposal_id'];

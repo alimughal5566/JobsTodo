@@ -11,6 +11,7 @@
 		$enableVideo = 0;
 	}
 ?>
+<!--- proposal-card-base mp-proposal-card Ends --->
 <div class="proposal-card-base mp-proposal-card"><!--- proposal-card-base mp-proposal-card Starts --->
 	<a href="<?= $site_url; ?>/proposals/<?= $seller_user_name; ?>/<?= $proposal_url; ?>">
 		<img src="<?= $proposal_img1; ?>" class="img-fluid">
@@ -54,7 +55,8 @@
 			<i class="fa fa-circle"></i> <?= $lang['proposals']['online']; ?>
 		</div>
 		<?php } ?>
-	</div><!--- proposal-card-caption Ends --->
+	</div>
+    <!--- proposal-card-caption Ends --->
 	<footer class="proposal-card-footer"><!--- proposal-card-footer Starts --->
 		<div class="proposal-fav">
 
@@ -93,4 +95,4 @@
 			</a>
 		</div>
 	</footer><!--- proposal-card-footer Ends --->
-</div><!--- proposal-card-base mp-proposal-card Ends --->
+</div>

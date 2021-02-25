@@ -14,7 +14,7 @@ function get_proposals($filter_type){
    global $site_url;
 
    $online_sellers = array();
-
+/*
    if($filter_type == "search"){
       $search_query = $_SESSION['search_query'];
       $s_value = "%$search_query%";
@@ -37,14 +37,53 @@ function get_proposals($filter_type){
       $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where level_id='4' and proposal_status='active'");
    }
    elseif ($filter_type == "random") {
-      $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_status='active' order by rand()");
+//      $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_status='active' order by rand()");
+      $get_proposals = $db->query("SELECT DISTINCT proposal_seller_id FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >=65 AND proposals.proposal_status='active' order by rand()");
    }
    elseif ($filter_type == "tag") {
       if(isset($_SESSION['tag'])){
          $tag = $_SESSION['tag'];
          $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_tags LIKE :tag AND proposal_status='active'",array("tag"=>"%$tag%"));
       }
-   }
+   }*/
+
+
+    if($filter_type == "search"){
+        $search_query = $_SESSION['search_query'];
+        $s_value = "%$search_query%";
+        $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_title like :proposal_title AND proposal_status='active'",array(":proposal_title"=>$s_value));
+    }
+    elseif($filter_type == "category"){
+        if(isset($_SESSION['cat_id'])){
+            $session_cat_id = $_SESSION['cat_id'];
+            $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_cat_id=:cat_id AND proposal_status='active'",array("cat_id"=>$session_cat_id));
+        }
+        elseif(isset($_SESSION['cat_child_id'])){
+            $session_cat_child_id = $_SESSION['cat_child_id'];
+            $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_child_id=:child_id AND proposal_status='active'",array("child_id"=>$session_cat_child_id));
+        }
+    }
+    elseif ($filter_type == "featured") {
+//      $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_featured='yes' AND proposal_status='active'");
+        $get_proposals = $db->query("SELECT DISTINCT proposal_seller_id FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >=65 AND proposals.proposal_status='active' AND proposal_featured='yes'");
+    }
+    elseif ($filter_type == "top") {
+//      $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where level_id='4' and proposal_status='active'");
+        $get_proposals = $db->query("SELECT DISTINCT proposal_seller_id FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >=65 AND proposals.proposal_status='active'AND proposals.level_id='4'");
+    }
+    elseif ($filter_type == "random") {
+//      $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_status='active' order by rand()");
+        $get_proposals = $db->query("SELECT DISTINCT proposal_seller_id FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >=65 AND proposals.proposal_status='active' order by rand()");
+    }
+    elseif ($filter_type == "tag") {
+        if(isset($_SESSION['tag'])){
+            $tag = $_SESSION['tag'];
+            $get_proposals = $db->query("SELECT DISTINCT proposal_seller_id FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >=65 AND proposals.proposal_status='active' AND proposals.proposal_tags LIKE :tag ",array("tag"=>"%$tag%"));
+        }
+    }
+
+
+
 
    while($row_proposals = $get_proposals->fetch()){
       $proposal_seller_id = $row_proposals->proposal_seller_id;
@@ -156,7 +195,7 @@ function get_proposals($filter_type){
    if($filter_type == "search"){
 
       $values['proposal_title'] = $s_value;
-      $query_where = "where proposal_title like :proposal_title AND proposal_status='active' ";
+      $query_where = "where proposal_title like :proposal_title AND proposal_status='active'  ";
 
    }elseif($filter_type == "category"){
 
@@ -226,8 +265,10 @@ function get_proposals($filter_type){
    }
 
    if($instant_delivery == 1){
-      $query_where .=" and instant_deliveries.enable=1";
+      $query_where .=" AND instant_deliveries.enable=1";
    }
+//   var_dump($query_where);
+//   die('sdfdsf');
 
    $per_page = 16;
    if(isset($_GET['page'])){
@@ -236,12 +277,14 @@ function get_proposals($filter_type){
       $page = 1;
    }
    $start_from = ($page-1) * $per_page;
+
    if($filter_type == "random"){
       $where_limit = " order by rand() LIMIT :limit OFFSET :offset";
    }else{
       $where_limit = " order by 1 $order_by LIMIT :limit OFFSET :offset";
    }
- 
+    $query_where .=" AND value_health >=65";
+// $health="AND value_health >=65";
 
    // echo "select DISTINCT proposals.* from proposals JOIN sellers ON proposals.proposal_seller_id=sellers.seller_id " . $query_where . $where_limit;
 
@@ -569,9 +612,9 @@ function get_pagination($filter_type){
    if($instant_delivery == 1){
       $query_where .=" and instant_deliveries.enable=1";
    }
-
+//    $heath="AND value_health >=65";
    $per_page = 16;
-   $get_proposals = $db->query("select DISTINCT proposals.* from proposals JOIN sellers ON proposals.proposal_seller_id=sellers.seller_id JOIN instant_deliveries ON proposals.proposal_id=instant_deliveries.proposal_id " . $query_where,$values);
+   $get_proposals = $db->query("select DISTINCT proposals.* from proposals JOIN sellers ON proposals.proposal_seller_id=sellers.seller_id JOIN instant_deliveries ON proposals.proposal_id=instant_deliveries.proposal_id " .$query_where,$values);
    $count_proposals = $get_proposals->rowCount();
    if($count_proposals > 0){
       $total_pages = ceil($count_proposals / $per_page);

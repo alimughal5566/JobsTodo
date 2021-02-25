@@ -123,6 +123,7 @@
       <?php } ?>
     </div>
   </div>
+
   <div class="form-group row">
     <label class="col-md-3 col-form-label"> <?= $lang['label']['cover_photo']; ?> </label>
     <div class="col-md-8">
@@ -137,7 +138,25 @@
       <?php } ?>
     </div>
   </div>
+
+    <!--  passport-->
   <div class="form-group row">
+        <label class="col-md-3 col-form-label"> <?= $lang['label']['id_passport']; ?> </label>
+        <div class="col-md-8">
+            <input type="file" name="passport_id_image" id="cover" class="form-control">
+            <p class="mt-2">
+                <?= str_replace('{url}',"$site_url/{$_SESSION['seller_user_name']}",$lang['label']['id_passport']); ?>
+            </p>
+            <?php if(!empty($login_seller_passport_id_image)){ ?>
+                <img src="<?= getImageUrl2("sellers","passport_id_image",$login_seller_passport_id_image); ?>" width="80" class="img-thumbnail img-circle"/>
+            <?php }else{ ?>
+                <img src="cover_images/empty-cover.png" width="80" class="img-thumbnail img-circle" >
+            <?php } ?>
+        </div>
+    </div>
+    <!--  passport-->
+
+    <div class="form-group row">
     <label class="col-md-3 col-form-label"> <?= $lang['label']['headline']; ?> </label>
     <div class="col-md-8">
       <textarea name="seller_headline" id="textarea-headline" rows="3" class="form-control" maxlength="150"><?= $login_seller_headline; ?></textarea>
@@ -240,7 +259,8 @@
       Flash::add("form_errors",$val->get_all_errors());
       Flash::add("form_data",$_POST);
       echo "<script> window.open('settings?profile_settings','_self');</script>";
-    }else{
+    }
+    else{
       $seller_name = strip_tags($input->post('seller_name'));
       $seller_email = strip_tags($input->post('seller_email'));
       $seller_country = strip_tags($input->post('seller_country'));
@@ -250,14 +270,36 @@
       $seller_headline = strip_tags($input->post('seller_headline'));
       $seller_about = strip_tags($input->post('seller_about'));
       $profile_photo = strip_tags($input->post('profile_photo'));
+
+
+      $passport_id_image = $_FILES['passport_id_image']['name'];
+        $passport_id_image_tmp = $_FILES['passport_id_image']['tmp_name'];
+        $allowed = array('jpeg','jpg','gif','png','tif');
+
+        $passport_id_image_file_extension = pathinfo($passport_id_image, PATHINFO_EXTENSION);
+        if(!in_array($passport_id_image_file_extension,$allowed) & !empty($passport_id_image)){
+            echo "<script>alert('{$lang['alert']['extension_not_supported']}')</script>";
+        }
+
+
+
+
+
+
+
+
+
       $cover_photo = $_FILES['cover_photo']['name'];
       $cover_photo_tmp = $_FILES['cover_photo']['tmp_name'];
+
       $allowed = array('jpeg','jpg','gif','png','tif');
+
       $cover_file_extension = pathinfo($cover_photo, PATHINFO_EXTENSION);
       
       if(!in_array($cover_file_extension,$allowed) & !empty($cover_photo)){
         echo "<script>alert('{$lang['alert']['extension_not_supported']}')</script>";
-      }else{
+      }
+      else{
 
         $count_seller_email = $db->query("select * from sellers where seller_email=:seller_email AND NOT seller_id='$login_seller_id'",['seller_email'=>$seller_email])->rowCount();
 
@@ -287,6 +329,17 @@
             $seller_cover_image_s3 = $enable_s3;
           }
 
+            if(empty($passport_id_image)){
+                $passport_id_image = $login_seller_passport_id_image;
+                $seller_passport_id_image_s3 = $login_seller_passport_id_image_s3;
+            }else{
+                $passport_id_image = pathinfo($passport_id_image, PATHINFO_FILENAME);
+                $passport_id_image = $passport_id_image."pas_or_id"."_".time().".$passport_id_image_file_extension";
+                uploadToS3("passport_or_id/$passport_id_image",$passport_id_image_tmp);
+                $seller_passport_id_image_s3 = $enable_s3;
+            }
+
+
           $update_proposals = $db->update("proposals",array("language_id" => $seller_language),array("proposal_seller_id" => $login_seller_id));
 
           $sel_languages_relation = $db->query("select * from languages_relation where seller_id='$login_seller_id' and language_id='$seller_language'");
@@ -303,7 +356,7 @@
             $verification_code = $login_seller_verification;
           }
 
-          $update_seller = $db->update("sellers",array("seller_name"=>$seller_name,"seller_email"=>$seller_email,"seller_image"=>$profile_photo,"seller_cover_image"=>$cover_photo,"seller_image_s3"=>$seller_image_s3,"seller_cover_image_s3"=>$seller_cover_image_s3,"seller_country"=>$seller_country,"seller_city"=>$seller_city,"seller_timezone"=>$seller_timezone,"seller_headline"=>$seller_headline,"seller_about"=>$seller_about,"seller_language"=>$seller_language,"seller_verification"=>$verification_code),array("seller_id"=>$login_seller_id));
+          $update_seller = $db->update("sellers",array("seller_name"=>$seller_name,"seller_email"=>$seller_email,"seller_image"=>$profile_photo,"seller_cover_image"=>$cover_photo,"passport_id_image"=>$passport_id_image,"seller_image_s3"=>$seller_image_s3,"seller_cover_image_s3"=>$seller_cover_image_s3,"seller_passport_id_image_s3"=>$seller_passport_id_image_s3,"seller_country"=>$seller_country,"seller_city"=>$seller_city,"seller_timezone"=>$seller_timezone,"seller_headline"=>$seller_headline,"seller_about"=>$seller_about,"seller_language"=>$seller_language,"seller_verification"=>$verification_code),array("seller_id"=>$login_seller_id));
           
           if($update_seller){
             if (($seller_email == $login_seller_email) or ($seller_email != $login_seller_email and userConfirmEmail($seller_email))){
