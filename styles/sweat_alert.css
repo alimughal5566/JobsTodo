@@ -1563,3 +1563,9 @@ body.swal2-no-backdrop .swal2-shown.swal2-bottom-end, body.swal2-no-backdrop .sw
         position: initial !important
     }
 }
+
+.swal2-icon {
+    border-color: #3c28a6;
+    color: #3c28a6;
+}
+

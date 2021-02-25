@@ -111,7 +111,39 @@ $videoPlugin = $core->checkPlugin("videoPlugin");;
     <script type="text/javascript" src="assets/js/ie.js"></script>
     <script type="text/javascript" src="assets/js/sweat_alert.js"></script>
     <script src="../js/jquery.min.js"></script>
+    <style>
+        #swal2-content {
+            color: #3C28A6;
+        }
+        button.swal2-confirm.swal2-styled {
+            border-left-color: #3C28A6  !important;
+            border-right-color: #3C28A6 !important;
+        }
+        .swal2-icon.swal2-success {
+            border-color: #3C28A6 ;
+        }
+        .swal2-icon.swal2-question {
+            border-color: #3C28A6 ;
+            color: #3C28A6 ; }
+        .swal2-icon.swal2-warning {
+            border-color: #3C28A6 ;
+            color: #3C28A6 ; }
+        .swal2-icon.swal2-info {
+            border-color: #3C28A6 ;
+            color: #3C28A6 ; }
+        .swal2-icon.swal2-success .swal2-success-ring {
+            border: 4px solid #3C28A6 ;
+        }
+        .swal2-icon.swal2-success [class^='swal2-success-line'] {
+            background-color: #3C28A6 ;
+        }
+
+
+
+
+    </style>
     <script>
+
     
     function alert_error(text){
         Swal('',text,'error');

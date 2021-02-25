@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.74.0 - 2021-02-17
+* [#1093](https://github.com/stripe/stripe-php/pull/1093) API Updates
+  * Add support for on_behalf_of to Invoice
+
+## 7.73.0 - 2021-02-16
+* [#1091](https://github.com/stripe/stripe-php/pull/1091) Update PHPDocs
+  * Add support for `afterpay_clearpay` on `PaymentMethod`.
+
 ## 7.72.0 - 2021-02-08
 * [#1089](https://github.com/stripe/stripe-php/pull/1089) API Updates
   * Add support for `afterpay_clearpay_payments` on `Account.capabilities`
