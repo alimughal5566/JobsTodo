@@ -20,7 +20,6 @@
   if(empty($login_seller_country)){
     $login_seller_country = "&nbsp;";
   }
-
   $select_seller_accounts = $db->select("seller_accounts",array("seller_id" => $login_seller_id));
   $row_seller_accounts = $select_seller_accounts->fetch();
   $current_balance = $row_seller_accounts->current_balance;
@@ -55,15 +54,15 @@
       }
     }
   }
-  
+
   if(isset($_GET['delete_notification'])){
     $delete_id = $input->get('delete_notification');
-    $delete_notification = $db->delete("notifications",['notification_id' => $delete_id,"receiver_id" => $login_seller_id]); 
+    $delete_notification = $db->delete("notifications",['notification_id' => $delete_id,"receiver_id" => $login_seller_id]);
     if($delete_notification->rowCount() == 1){
       echo "<script>alert('One notification has been deleted.')</script>";
       echo "<script>window.open('dashboard','_self')</script>";
-    }else{ 
-      echo "<script>window.open('dashboard','_self')</script>"; 
+    }else{
+      echo "<script>window.open('dashboard','_self')</script>";
     }
   }
 
@@ -242,7 +241,7 @@
               if($count_notifications == 0){
                 echo "<h5 class='text-center mb-3'> {$lang["dashboard"]['no_notifications']} </h5>";
               }
-              
+
               $get_notifications = $db->query("select * from notifications where receiver_id='$login_seller_id' order by 1 DESC limit 0,5");
               while($row_notifications = $get_notifications->fetch()){
               $notification_id = $row_notifications->notification_id;
@@ -268,7 +267,7 @@
             ?>
             <div class="<?php if($status == "unread"){ echo "header-message-div-unread"; }else{ echo "header-message-div"; } ?>">
               <a href="dashboard?delete_notification=<?= $notification_id; ?>" class="float-right delete text-danger">
-              <i class="fa fa-times-circle fa-lg"></i>	
+              <i class="fa fa-times-circle fa-lg"></i>
               </a>
               <a href="dashboard?n_id=<?= $notification_id; ?>">
                 <?php if(!empty($sender_image)){ ?>
@@ -296,7 +295,7 @@
           </div>
           <div id="inbox" class="tab-pane fade mt-3">
             <?php
-            
+
             if($count_all_inbox_sellers == 0){
               echo "<h5 class='text-center mb-3'> {$lang["dashboard"]['no_messages']} </h5>";
             }
@@ -333,18 +332,18 @@
               $message_desc = "Sent you an offer";
             }
 
-            if($message_status == 'unread'){ 
+            if($message_status == 'unread'){
               if($login_seller_id == $receiver_id){
-                $msgClass = "header-message-div-unread"; 
-              }else{ 
-                $msgClass = "header-message-div"; 
-              } 
-            }else{ 
-              $msgClass = "header-message-div"; 
+                $msgClass = "header-message-div-unread";
+              }else{
+                $msgClass = "header-message-div";
+              }
+            }else{
+              $msgClass = "header-message-div";
             }
 
             ?>
-            <div class="<?= $msgClass; ?>"> 
+            <div class="<?= $msgClass; ?>">
               <a href="conversations/inbox?single_message_id=<?= $message_group_id; ?>">
                 <?php if(!empty($sender_image)){ ?>
                 <img src="<?= $sender_image; ?>" width="50" height="50" class="rounded-circle">

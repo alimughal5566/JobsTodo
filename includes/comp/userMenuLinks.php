@@ -1,6 +1,23 @@
 <div class="dropdown user-menu">
-<a href="#" id="usermenu" class="user dropdown-toggle menuItem" style="margin-top: 17px;" class="dropdown-toggle" data-toggle="dropdown">
-  <?php if(!empty($seller_image)){ ?>
+<a href="#" id="usermenu" class="user dropdown-toggle menuItem" style="margin-top: 17px; position: relative" class="dropdown-toggle" data-toggle="dropdown">
+  <?php if(!empty($seller_image)){
+      $login_seller_user_name = $_SESSION['seller_user_name'];
+      $select_login_seller = $db->select("sellers",array("seller_user_name" => $login_seller_user_name));
+      $row_login_seller = $select_login_seller->fetch();
+      $is_verified_passport = $row_login_seller->is_verified_passport;
+
+      ?>
+<!--      <span class="logged-in text-danger " style="position: absolute;">●</span>-->
+
+<?php if($is_verified_passport=='Pending'){
+          $is_verified_passport_icon='fa-times-circle';
+          $is_verified_passport_color='text-danger';
+      }else{
+          $is_verified_passport_icon='fa-check-circle';
+          $is_verified_passport_color='text-success';
+      }
+      ?>
+      <span class="logged-in  <?= $is_verified_passport_color ?> fa <?= $is_verified_passport_icon ?>" style="position: absolute;"></span>
   <img src="<?= $seller_image; ?>" width="27" height="27" class="rounded-circle">
   <?php }else{ ?>
   <img src="<?= $site_url; ?>/user_images/empty-image.png" width="27" height="27" class="rounded-circle">
@@ -54,6 +71,8 @@
       <?= $lang["menu"]['favorites']; ?>
       </a>
    </div>
+
+    <?php if($is_verified_passport=='Approved'){ ?>
    <a class="dropdown-item dropdown-toggle" href="#" data-toggle="collapse" data-target="#requests">
    <?= $lang["menu"]['requests']; ?>
    </a>
@@ -65,6 +84,7 @@
       <?= $lang["menu"]['manage_requests']; ?>
       </a>
    </div>
+    <?php } ?>
    <a class="dropdown-item dropdown-toggle" href="#" data-toggle="collapse" data-target="#contacts">
    <?= $lang["menu"]['contacts']; ?>
    </a>

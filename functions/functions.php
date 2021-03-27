@@ -372,7 +372,7 @@ function get_freelancers(){
 	$where_limit = " order by seller_level DESC LIMIT $per_page OFFSET $start_from";
 
 	if(!empty($where_path)){
-		$query = "select DISTINCT sellers.* from sellers JOIN proposals ON sellers.seller_id=proposals.proposal_seller_id and proposals.proposal_status='active' $query_where$where_limit";
+		$query = "select DISTINCT sellers.* from sellers JOIN proposals ON sellers.seller_id=proposals.proposal_seller_id and proposals.proposal_status='active'  $query_where$where_limit";
 		$sellers = $db->query($query,$values);
 	}else{
 		$query = "select DISTINCT sellers.* from sellers JOIN proposals ON sellers.seller_id=proposals.proposal_seller_id and proposals.proposal_status='active' $where_limit";

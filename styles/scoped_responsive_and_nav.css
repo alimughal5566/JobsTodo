@@ -9332,11 +9332,12 @@ a.arrow-up::after {
 
 .gnav-header .gnav-search-inner {
     position: absolute;
-    display: table;
     width: 100%;
     top: 50%;
     margin-top: -17px;
     height: 34px;
+    display: flex;
+    align-items: center;
 }
 
 .gnav-header .gnav-search-inner.search-mobile {
@@ -9350,7 +9351,9 @@ a.arrow-up::after {
     vertical-align: top;
     width: 100%;
 }
-
+.gnav-header .search-button-wrapper {
+    max-width: 80px;
+}
 .gnav-header .search-input-wrapper .close {
     display: none;
 }

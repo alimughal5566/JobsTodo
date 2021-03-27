@@ -3,13 +3,11 @@
 
 @session_start();
 
-if(!isset($_SESSION['admin_email'])){
-
-echo "<script>window.open('login','_self');</script>";
-
-}else{
-
-?>
+if (!isset($_SESSION['admin_email'])) {
+    echo "<script>window.open('login','_self');</script>";
+   
+} else {
+    ?>
 
 
 <div class="breadcrumbs">
@@ -53,7 +51,7 @@ echo "<script>window.open('login','_self');</script>";
 
             <p> Top Rated Sellers </p>
 
-            <?php $count_sellers = $db->count("sellers",array("seller_level" => 4)); ?>
+            <?php $count_sellers = $db->count("sellers", array("seller_level" => 4)); ?>
 
             <h2><?= $count_sellers; ?></h2>
 
@@ -64,7 +62,7 @@ echo "<script>window.open('login','_self');</script>";
 
             <p> Level Two Sellers </p>
 
-            <?php $count_sellers = $db->count("sellers",array("seller_level" => 3)); ?>
+            <?php $count_sellers = $db->count("sellers", array("seller_level" => 3)); ?>
 
             <h2><?= $count_sellers; ?></h2>
 
@@ -75,7 +73,7 @@ echo "<script>window.open('login','_self');</script>";
 
             <p> Level One Sellers </p>
 
-            <?php  $count_sellers = $db->count("sellers",array("seller_level" => 2)); ?>
+            <?php  $count_sellers = $db->count("sellers", array("seller_level" => 2)); ?>
 
             <h2><?= $count_sellers; ?></h2>
 
@@ -86,7 +84,7 @@ echo "<script>window.open('login','_self');</script>";
 
             <p> New Users </p>
 
-            <?php $count_sellers = $db->count("sellers",array("seller_level" => 1));  ?>
+            <?php $count_sellers = $db->count("sellers", array("seller_level" => 1)); ?>
 
             <h2><?= $count_sellers; ?></h2>
 
@@ -137,7 +135,9 @@ echo "<script>window.open('login','_self');</script>";
     <input type="hidden" name="view_sellers" value="">
 
     <div class="input-group mb-3 mt-3 mt-lg-0">
-      <input type="text" name="search" class="form-control" placeholder="Search Sellers" value="<?php if(isset($_GET['search'])){ echo $input->get('search'); } ?>">
+      <input type="text" name="search" class="form-control" placeholder="Search Sellers" value="<?php if (isset($_GET['search'])) {
+        echo $input->get('search');
+    } ?>">
       <div class="input-group-append">
         <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
       </div>
@@ -167,7 +167,7 @@ echo "<script>window.open('login','_self');</script>";
                     <th>Seller Level</th>
 
                     <th>Email Verified</th>
-
+                    <th>Passport Status</th>
                     <th>Register Date</th>
 
                     <th>Actions</th>
@@ -183,54 +183,55 @@ echo "<script>window.open('login','_self');</script>";
 
                 $per_page = 8;
 
-                if(isset($_GET['view_sellers'])){
-                    
-                    $page = $input->get('view_sellers');
+    if (isset($_GET['view_sellers'])) {
+        $page = $input->get('view_sellers');
 
-                    if($page == 0){ $page = 1; }
-                    
-                }else{
-                    
-                    $page = 1;
-                    
-                }
+        if ($page == 0) {
+            $page = 1;
+        }
+    } else {
+        $page = 1;
+    }
 
-                $i = ($page*$per_page)-8;
+    $i = ($page*$per_page)-8;
 
-                if(isset($_GET['search'])){ $search = $input->get('search'); }else{ $search = ""; }
+    if (isset($_GET['search'])) {
+        $search = $input->get('search');
+    } else {
+        $search = "";
+    }
 
-                /// Page will start from 0 and multiply by per page
+    /// Page will start from 0 and multiply by per page
 
-                $start_from = ($page-1) * $per_page;
+    $start_from = ($page-1) * $per_page;
 
-                $get_sellers = $db->query("select * from sellers where seller_user_name like :search order by 1 DESC LIMIT :limit OFFSET :offset",array("search"=>"%$search%"),array("limit"=>$per_page,"offset"=>$start_from));
+    $get_sellers = $db->query("select * from sellers where seller_user_name like :search order by 1 DESC LIMIT :limit OFFSET :offset", array("search"=>"%$search%"), array("limit"=>$per_page,"offset"=>$start_from));
 
-                while($row_sellers = $get_sellers->fetch()){
+    while ($row_sellers = $get_sellers->fetch()) {
+        $seller_id = $row_sellers->seller_id;
+        $seller_user_name = $row_sellers->seller_user_name;
+        $seller_email = $row_sellers->seller_email;
+        $seller_level = $row_sellers->seller_level;
+        $seller_register_date = $row_sellers->seller_register_date;
+        $seller_status = $row_sellers->seller_status;
+        $seller_verification = $row_sellers->seller_verification;
+        $is_verified_passport = $row_sellers->is_verified_passport;
 
-                $seller_id = $row_sellers->seller_id;
-                $seller_user_name = $row_sellers->seller_user_name;
-                $seller_email = $row_sellers->seller_email;
-                $seller_level = $row_sellers->seller_level;
-                $seller_register_date = $row_sellers->seller_register_date;
-                $seller_status = $row_sellers->seller_status;
-                $seller_verification = $row_sellers->seller_verification;
 
-                if($seller_verification == "ok"){
-                    $email_verification = "Yes";
-                }else{
-                    $email_verification = "No";
-                }
+        if ($seller_verification == "ok") {
+            $email_verification = "Yes";
+        } else {
+            $email_verification = "No";
+        }
 
-                $level_title = $db->select("seller_levels_meta",array("level_id"=>$seller_level,"language_id"=>$adminLanguage))->fetch()->title;
+        $level_title = $db->select("seller_levels_meta", array("level_id"=>$seller_level,"language_id"=>$adminLanguage))->fetch()->title;
 
-                $i++;
-
-                ?>
+        $i++; ?>
 
                     <tr>
 
                         <td>
-                            <?= $i; ?>
+                                <?= $i; ?>
                         </td>
 
                         <td>
@@ -247,6 +248,9 @@ echo "<script>window.open('login','_self');</script>";
 
                         <td>
                             <?= $email_verification; ?>
+                        </td>
+                        <td>
+                                <a class="<?=($is_verified_passport=='Pending')?'text-danger':'text-success' ?> " href="index?passport-update=<?php echo $seller_id?>&is_verified_passport=<?= $is_verified_passport ?>" ><?= $is_verified_passport ?></a>
                         </td>
 
                         <td>
@@ -267,7 +271,7 @@ echo "<script>window.open('login','_self');</script>";
 
                                     </a>
                                         
-                                    <?php if($seller_verification != "ok"){ ?>
+                                    <?php if ($seller_verification != "ok") { ?>
                                     <a class="dropdown-item" href="index?verify_email=<?= $seller_id; ?>">
 
                                         <i class="fa fa-envelope"></i> Verify Seller Email
@@ -289,7 +293,7 @@ echo "<script>window.open('login','_self');</script>";
                                     </a>
 
 
-                                    <?php if($seller_status == "block-ban"){ ?>
+                                    <?php if ($seller_status == "block-ban") { ?>
 
                                     <a class="dropdown-item" href="index?unblock_seller=<?= $seller_id; ?>">
 
@@ -297,7 +301,7 @@ echo "<script>window.open('login','_self');</script>";
 
                                     </a>
 
-                                    <?php }else{ ?>
+                                    <?php } else { ?>
 
                                     <a class="dropdown-item" href="index?ban_seller=<?= $seller_id; ?>">
 
@@ -315,7 +319,8 @@ echo "<script>window.open('login','_self');</script>";
 
                     </tr>
 
-                    <?php } ?>
+                    <?php
+    } ?>
 
             </tbody><!--- tbody Ends --->
 
@@ -332,38 +337,42 @@ echo "<script>window.open('login','_self');</script>";
 
             /// Now Select All From Proposals Table
 
-            $query = $db->query("select * from sellers where seller_user_name like :search ",array("search"=>"%$search%"));
+            $query = $db->query("select * from sellers where seller_user_name like :search ", array("search"=>"%$search%"));
 
-            /// Count The Total Records 
+    /// Count The Total Records
 
-            $total_records = $query->rowCount();
+    $total_records = $query->rowCount();
 
-            /// Using ceil function to divide the total records on per page
+    /// Using ceil function to divide the total records on per page
 
-            $total_pages = ceil($total_records / $per_page);
+    $total_pages = ceil($total_records / $per_page);
 
-            echo "<li class='page-item'><a href='index?view_sellers=1&search=$search' class='page-link'> First Page </a></li>";
+    echo "<li class='page-item'><a href='index?view_sellers=1&search=$search' class='page-link'> First Page </a></li>";
 
-            echo "<li class='page-item ".(1 == $page ? "active" : "")."'><a class='page-link' href='index?view_sellers=1&search=$search'>1</a></li>";
+    echo "<li class='page-item ".(1 == $page ? "active" : "")."'><a class='page-link' href='index?view_sellers=1&search=$search'>1</a></li>";
             
-            $i = max(2, $page - 5);
+    $i = max(2, $page - 5);
             
-            if ($i > 2)
+    if ($i > 2) {
+        echo "<li class='page-item' href='#'><a class='page-link'>...</a></li>";
+    }
             
-                echo "<li class='page-item' href='#'><a class='page-link'>...</a></li>";
-            
-            for (; $i < min($page + 6, $total_pages); $i++) {
-                        
-                echo "<li class='page-item"; if($i == $page){ echo " active "; } echo "'><a href='index?view_sellers=".$i."&search=$search' class='page-link'>".$i."</a></li>";
+    for (; $i < min($page + 6, $total_pages); $i++) {
+        echo "<li class='page-item";
+        if ($i == $page) {
+            echo " active ";
+        }
+        echo "'><a href='index?view_sellers=".$i."&search=$search' class='page-link'>".$i."</a></li>";
+    }
+    if ($i != $total_pages and $total_pages > 1) {
+        echo "<li class='page-item' href='#'><a class='page-link'>...</a></li>";
+    }
 
-            }
-            if ($i != $total_pages and $total_pages > 1){echo "<li class='page-item' href='#'><a class='page-link'>...</a></li>";}
+    if ($total_pages > 1) {
+        echo "<li class='page-item ".($total_pages == $page ? "active" : "")."'><a class='page-link' href='index?view_sellers=$total_pages&search=$search'>$total_pages</a></li>";
+    }
 
-            if($total_pages > 1){echo "<li class='page-item ".($total_pages == $page ? "active" : "")."'><a class='page-link' href='index?view_sellers=$total_pages&search=$search'>$total_pages</a></li>";}
-
-            echo "<li class='page-item'><a href='index?view_sellers=$total_pages&search=$search' class='page-link'>Last Page </a></li>";
-
-            ?>
+    echo "<li class='page-item'><a href='index?view_sellers=$total_pages&search=$search' class='page-link'>Last Page </a></li>"; ?>
 
         </ul><!--- pagination Ends --->
 
@@ -379,5 +388,34 @@ echo "<script>window.open('login','_self');</script>";
 </div><!--- 3 row Ends --->
 
 </div>
+<?php
 
-<?php } ?>
+
+//if ($_REQUEST['passport-update']) {
+//    if ($_GET['passport-update']=='pending') {
+//        $stat="Approved";
+//    } else {
+//        $stat="Pending";
+//    }
+//
+//    $update_seller = $db->update("sellers", array("is_verified_passport" => $_GET['is_verified_passport']), array("seller_id" => $stat));
+//    if ($update_seller) {
+//        ?>
+<!--     <script>-->
+<!--      swal({-->
+<!--        type: 'success',-->
+<!--        text: 'status updted successfully!',-->
+<!--        timer: 3000,-->
+<!--        onOpen: function(){-->
+<!--        swal.showLoading()-->
+<!--        }-->
+<!--      }).then(function(){-->
+<!--        window.open('index?view_sellers','');-->
+<!--        console.log('Account deactivated successfully');-->
+<!--      })-->
+<!--      </script>-->
+<!--      --><?php
+//    }
+//}
+}
+?>

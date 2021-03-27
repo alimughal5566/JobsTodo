@@ -1,9 +1,8 @@
 <?php
 @session_start();
-require_once("../pusher.php");
 require_once("../includes/db.php");
 require_once("../functions/mailer.php");
-
+require_once("../pusher.php");
 if(!isset($_SESSION['seller_user_name'])){
 	echo "<script>window.open('../login','_self')</script>";
 }
@@ -18,10 +17,10 @@ function removeJava($html){
    $dom = new DOMDocument;
    // @$dom->loadHTML($html);
    @$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
-   $nodes = $dom->getElementsByTagName('*');//just get all nodes, 
+   $nodes = $dom->getElementsByTagName('*');//just get all nodes,
    foreach($nodes as $node){
-      foreach($attrs as $attr){ 
-         if($node->hasAttribute($attr)){ 
+      foreach($attrs as $attr){
+         if($node->hasAttribute($attr)){
             $node->removeAttribute($attr);
          }
       }
@@ -53,8 +52,10 @@ if (isset($insert_message)){
 $dataa['sender_id']=$sender_id;
 $data['receiver_id']=$receiver_id;
 $data['message']=$message;
+
 $pusher->trigger('my-channel', 'my-event',$data);
 }
+
 $last_message_id = $db->lastInsertId();
 
 $update_inbox_sellers = $db->update("inbox_sellers",array("sender_id" => $login_seller_id,"receiver_id" => $receiver_seller_id,"message_status" => $message_status,"time"=>$time,"message_id" => $last_message_id,'popup'=>'1'),array("message_group_id" => $message_group_id));
@@ -85,17 +86,17 @@ if($update_inbox_sellers){
 	$seller_user_name = $row_seller->seller_user_name;
 	$seller_email = $row_seller->seller_email;
 
-	// $data = [];
-	// $data['template'] = "new_message";
-	// $data['to'] = $seller_email;
-	// $data['subject'] = "You've received a message from $login_seller_user_name";
-	// $data['user_name'] = $seller_user_name;
-	// $data['sender_user_name'] = $login_seller_user_name;
-	// $data['message'] = $message;
-	// $data['attachment'] = $file;
-	// $data['message_date'] = $message_date;
-	// $data['message_group_id'] = $message_group_id;
-	// send_mail($data);
+	 $data = [];
+	 $data['template'] = "new_message";
+	 $data['to'] = $seller_email;
+	 $data['subject'] = "You've received a message from $login_seller_user_name";
+	 $data['user_name'] = $seller_user_name;
+	 $data['sender_user_name'] = $login_seller_user_name;
+	 $data['message'] = $message;
+	 $data['attachment'] = $file;
+	 $data['message_date'] = $message_date;
+	 $data['message_group_id'] = $message_group_id;
+	 send_mail($data);
 
 }
 ?>

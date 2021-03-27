@@ -9,7 +9,7 @@
 			<li class="<?=($lang_dir=="right"?'float-right':'')?>">
 
 				<a href="<?= $site_url; ?>/dashboard"><?= $lang["menu"]['dashboard']; ?></a>
-				
+
 			</li>
 
 			<li class="<?=($lang_dir=="right"?'float-right':'')?>">
@@ -23,22 +23,22 @@
 						<?php if($count_active_proposals > 0){ ?>
 
 						<li>
-							
+
 							<a href="<?= $site_url; ?>/selling_orders"><?= $lang["menu"]['orders']; ?></a>
 
 						</li>
-						
+
 						<?php } ?>
 
 						<li>
-							
+
 							<a href="<?= $site_url; ?>/proposals/view_proposals"><?= $lang["menu"]['my_proposals']; ?></a>
 
 
 						</li>
 
 						<li>
-							
+
 							<a href="<?= $site_url; ?>/proposals/create_coupon"><?= $lang["menu"]['create_coupon']; ?></a>
 
 
@@ -47,7 +47,7 @@
 						<?php if($count_active_proposals > 0){ ?>
 
 						<li>
-							
+
 							<a href="<?= $site_url; ?>/requests/buyer_requests"><?= $lang["menu"]['buyer_requests']; ?></a>
 
 						</li>
@@ -63,7 +63,7 @@
 						<?php } ?>
 
 					</ul>
-					
+
 				</div>
 
 			</li>
@@ -71,7 +71,7 @@
 			<li class="<?=($lang_dir=="right"?'float-right':'')?>">
 
 				<a href="#">
-					
+
 					<?= $lang["menu"]['buying']; ?> <i class="fa fa-fw fa-caret-down"></i>
 
 				</a>
@@ -81,7 +81,7 @@
 					<ul>
 
 						<li>
-							
+
 							<a href="<?= $site_url; ?>/buying_orders">
 
 								<?= $lang["menu"]['orders']; ?>
@@ -89,20 +89,20 @@
 							</a>
 
 						</li>
-						
+
 
 						<li>
-							
+
 							<a href="<?= $site_url; ?>/purchases">
 
 								<?= $lang["menu"]['purchases']; ?>
-								
+
 							</a>
 
 						</li>
 
 						<li>
-							
+
 							<a href="<?= $site_url; ?>/favorites">
 
 								<?= $lang["menu"]['favorites']; ?>
@@ -114,60 +114,67 @@
 					</ul>
 
 				</div>
-				
+
 			</li>
 
 
+            <?php
+            $select_login_seller = $db->select("sellers", array("seller_id" => $login_seller_id));
+            $row_login_seller = $select_login_seller->fetch();
+            $is_verified_passport = $row_login_seller->is_verified_passport;
+            //var_dump($is_verified_passport );
+            //die();
+            ?>
 
+
+            <?php if($is_verified_passport=='Approved'){ ?>
+                <li class="<?=($lang_dir=="right"?'float-right':'')?>">
+
+                    <a href="#">
+
+                        <?= $lang["menu"]['requests']; ?> <i class="fa fa-fw fa-caret-down"></i>
+
+                    </a>
+
+                    <div class="menu-cont">
+
+                        <ul>
+
+                            <li>
+
+                                <a href="<?= $site_url; ?>/requests/manage_requests">
+
+                                    <?= $lang["menu"]['manage_requests']; ?>
+
+
+                                </a>
+
+
+                            </li>
+
+
+                            <li>
+
+                                <a href="<?= $site_url; ?>/requests/post_request">
+                                    <?= $lang["menu"]['post_request']; ?>
+
+                                </a>
+
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </li>
+            <?php } ?>
 
 
 			<li class="<?=($lang_dir=="right"?'float-right':'')?>">
 
 				<a href="#">
-					
-					<?= $lang["menu"]['requests']; ?> <i class="fa fa-fw fa-caret-down"></i>
 
-				</a>
-
-				<div class="menu-cont">
-
-					<ul>
-
-						<li>
-							
-							<a href="<?= $site_url; ?>/requests/manage_requests">
-
-								<?= $lang["menu"]['manage_requests']; ?>
-								
-
-							</a>
-
-
-						</li>
-						
-
-						<li>
-							
-							<a href="<?= $site_url; ?>/requests/post_request">
-
-								<?= $lang["menu"]['post_request']; ?>
-
-							</a>
-
-
-						</li>
-
-					</ul>
-					
-				</div>
-				
-			</li>
-
-
-			<li class="<?=($lang_dir=="right"?'float-right':'')?>">
-
-				<a href="#">
-					
 					<?= $lang["menu"]['contacts']; ?> <i class="fa fa-fw fa-caret-down"></i>
 
 				</a>
@@ -177,7 +184,7 @@
 					<ul>
 
 						<li>
-							
+
 							<a href="<?= $site_url; ?>/manage_contacts?my_buyers">
 
 								<?= $lang["menu"]['my_buyers']; ?>
@@ -185,9 +192,9 @@
 							</a>
 
 						</li>
-						
+
 						<li>
-							
+
 							<a href="<?= $site_url; ?>/manage_contacts?my_sellers">
 
 								<?= $lang["menu"]['my_sellers']; ?>
@@ -199,9 +206,9 @@
 					</ul>
 
 				</div>
-				
+
 			</li>
-            
+
 
 		<?php if($enable_referrals == "yes"){ ?>
 
@@ -214,13 +221,13 @@
 					<ul>
 
 						<li>
-							
+
 						<a href="<?= $site_url; ?>/my_referrals"><?= $lang["menu"]['user_referrals']; ?></a>
 
 						</li>
-						
+
 						<li>
-							
+
 						<a href="<?= $site_url; ?>/proposal_referrals"><?= $lang["menu"]['proposal_referrals']; ?></a>
 
 						</li>
@@ -228,7 +235,7 @@
 					</ul>
 
 				</div>
-				
+
 			</li>
 
 		<?php } ?>
@@ -237,13 +244,13 @@
 			<li class="<?=($lang_dir=="right"?'float-right':'')?>">
 
 				<a href="<?= $site_url; ?>/conversations/inbox"><?= $lang["menu"]['inbox_messages']; ?></a>
-				
+
 			</li>
 
 			<li class="<?=($lang_dir=="right"?'float-right':'')?>">
 
 				<a href="<?= $site_url; ?>/notifications"><?= $lang["menu"]['notifications']; ?></a>
-				
+
 			</li>
 
 
@@ -252,9 +259,9 @@
 				<a href="<?= $site_url; ?>/<?= $_SESSION['seller_user_name']; ?>">
 
 								<?= $lang["menu"]['my_profile']; ?>
-					
+
 				</a>
-				
+
 
 			</li>
 
@@ -272,14 +279,14 @@
 					<ul>
 
 						<li>
-							
+
 						<a href="<?= $site_url; ?>/settings?profile_settings"><?= $lang["menu"]['profile_settings']; ?></a>
 
 
 						</li>
-						
+
 						<li>
-							
+
 						<a href="<?= $site_url; ?>/settings?account_settings"><?= $lang["menu"]['account_settings']; ?></a>
 
 						</li>
@@ -287,13 +294,13 @@
 					</ul>
 
 				</div>
-				
+
 			</li>
 
 		</ul>
 
 	</div>
-	
+
    </div>
 
 </div>

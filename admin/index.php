@@ -807,6 +807,31 @@ $videoPlugin = $core->checkPlugin("videoPlugin");
             include("verify_email.php");
         }
 
+        if (isset($_GET['passport-update'])) {
+            if($_GET['is_verified_passport']=='Pending'){
+                $stat='Approved';
+            }else{
+                $stat='Pending';
+            }
+            $update_seller = $db->update("sellers", array("is_verified_passport" => $stat), array("seller_id" => $_GET['passport-update']));
+            if ($update_seller) {
+                echo "<script>
+              swal({
+                type: 'success',
+                text: 'Passport status updated successfully!',
+                timer: 2000,
+                onOpen: function(){
+                  swal.showLoading()
+                }
+              }).then(function(){
+                // Read more about handling dismissals
+                window.open('index?view_sellers','_self');
+              });
+              </script>";
+            }
+        }
+
+
     }
 
     if ($a_orders == 1) {

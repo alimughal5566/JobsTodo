@@ -14,6 +14,11 @@ function get_proposals($filter_type){
    global $site_url;
 
    $online_sellers = array();
+
+    $get_general_settings = $db->select("general_settings");
+    $row_general_settings = $get_general_settings->fetch();
+    $minimum_profile_percentage = $row_general_settings->minimum_profile_percentage;
+
 /*
    if($filter_type == "search"){
       $search_query = $_SESSION['search_query'];
@@ -65,20 +70,20 @@ function get_proposals($filter_type){
     }
     elseif ($filter_type == "featured") {
 //      $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_featured='yes' AND proposal_status='active'");
-        $get_proposals = $db->query("SELECT DISTINCT proposal_seller_id FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >=65 AND proposals.proposal_status='active' AND proposal_featured='yes'");
+        $get_proposals = $db->query("SELECT DISTINCT proposal_seller_id FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >='$minimum_profile_percentage' AND proposals.proposal_status='active' AND proposal_featured='yes'");
     }
     elseif ($filter_type == "top") {
 //      $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where level_id='4' and proposal_status='active'");
-        $get_proposals = $db->query("SELECT DISTINCT proposal_seller_id FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >=65 AND proposals.proposal_status='active'AND proposals.level_id='4'");
+        $get_proposals = $db->query("SELECT DISTINCT proposal_seller_id FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >='$minimum_profile_percentage' AND proposals.proposal_status='active'AND proposals.level_id='4'");
     }
     elseif ($filter_type == "random") {
 //      $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_status='active' order by rand()");
-        $get_proposals = $db->query("SELECT DISTINCT proposal_seller_id FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >=65 AND proposals.proposal_status='active' order by rand()");
+        $get_proposals = $db->query("SELECT DISTINCT proposal_seller_id FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >='$minimum_profile_percentage' AND proposals.proposal_status='active' order by rand()");
     }
     elseif ($filter_type == "tag") {
         if(isset($_SESSION['tag'])){
             $tag = $_SESSION['tag'];
-            $get_proposals = $db->query("SELECT DISTINCT proposal_seller_id FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >=65 AND proposals.proposal_status='active' AND proposals.proposal_tags LIKE :tag ",array("tag"=>"%$tag%"));
+            $get_proposals = $db->query("SELECT DISTINCT proposal_seller_id FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >='$minimum_profile_percentage' AND proposals.proposal_status='active' AND proposals.proposal_tags LIKE :tag ",array("tag"=>"%$tag%"));
         }
     }
 
@@ -283,7 +288,7 @@ function get_proposals($filter_type){
    }else{
       $where_limit = " order by 1 $order_by LIMIT :limit OFFSET :offset";
    }
-    $query_where .=" AND value_health >=65";
+    $query_where .=" AND value_health >='$minimum_profile_percentage'";
 // $health="AND value_health >=65";
 
    // echo "select DISTINCT proposals.* from proposals JOIN sellers ON proposals.proposal_seller_id=sellers.seller_id " . $query_where . $where_limit;

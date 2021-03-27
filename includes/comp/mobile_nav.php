@@ -19,9 +19,7 @@
 		<?php 
 
 		$count_unread_notifications = $db->count("notifications",array("receiver_id" => $seller_id,"status" => "unread"));
-
 		$count_unread_inbox_messages = $db->query("select * from inbox_messages where message_receiver=:r_id AND message_status='unread'",array("r_id"=>$seller_id))->rowCount();
-
 		$count_favourites = $db->count("favorites",array("seller_id" => $seller_id));
 
 		?>
@@ -58,11 +56,7 @@
 
 				 	</a>
 
-				 	<div class="dropdown-menu notifications-dropdown" style="width:110% !important; position:relative;">
 
-					
-
-      			 	</div>
 				 	
 		  </li><br>
 

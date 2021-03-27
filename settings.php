@@ -20,6 +20,7 @@ $login_seller_cover_image = $row_login_seller->seller_cover_image;
 $login_seller_passport_id_image = $row_login_seller->passport_id_image;
 $login_seller_passport_id_image_s3 = $row_login_seller->seller_passport_id_image_s3;
 
+$is_verified_passport=$row_login_seller->is_verified_passport;
 $login_seller_image_s3 = $row_login_seller->seller_image_s3;
 $login_seller_cover_image_s3 = $row_login_seller->seller_cover_image_s3;
 

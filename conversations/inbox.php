@@ -1,11 +1,8 @@
-
 <?php
-session_start();
-
-//require_once("../pusher.js");
+@session_start();
 require_once("../includes/db.php");
-require("../pusher.php");
 require_once("../functions/email.php");
+require("../pusher.php");
 if(!isset($_SESSION['seller_user_name'])){
   echo "<script>window.open('../login','_self');</script>";
 }

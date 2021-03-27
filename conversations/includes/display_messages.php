@@ -1,18 +1,15 @@
+<?php @session_start(); ?>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
-
-var pusher = new Pusher('4cfb3fd156ec8d31edae', {
-cluster: 'us3'
-});
-
+var pusher = new Pusher('ad6a3e54ebdd15a3f395', {
+      cluster: 'ap2'
+    });
 var channel = pusher.subscribe('my-channel');
-
 </script>
 <?php
 
-	@session_start();
 	require_once("../../includes/db.php");
 	if(!isset($_SESSION['seller_user_name'])){
 		echo "<script>window.open('../../login','_self')</script>";
@@ -39,10 +36,8 @@ var channel = pusher.subscribe('my-channel');
 	$message_date = $row_inbox_messages->message_date;
 	$message_file = $row_inbox_messages->message_file;
 	$message_offer_id = $row_inbox_messages->message_offer_id;
-
 	if(!$message_offer_id == 0){
-		
-		$select_offer = $db->select("messages_offers",array("offer_id" => $message_offer_id));	
+		$select_offer = $db->select("messages_offers",array("offer_id" => $message_offer_id));
 		$row_offer = $select_offer->fetch();
 		$sender_id = $row_offer->sender_id;
 		$proposal_id = $row_offer->proposal_id;
@@ -56,16 +51,15 @@ var channel = pusher.subscribe('my-channel');
 		$row_proposals = $select_proposals->fetch();
 		$proposal_title = $row_proposals->proposal_title;
       $proposal_img1 = getImageUrl2("proposals","proposal_img1",$row_proposals->proposal_img1);
-	
-	}
 
+	}
 	$select_sender = $db->select("sellers",array("seller_id" => $message_sender));
 	$row_sender = $select_sender->fetch();
 	$sender_user_name = $row_sender->seller_user_name;
 	$sender_image = getImageUrl2("sellers","seller_image",$row_sender->seller_image);
 
 	$sender_profile_link = $sender_user_name;
-                
+
 	if($login_seller_id == $message_sender){
 		$sender_user_name = "Me";
 	}
@@ -73,9 +67,9 @@ var channel = pusher.subscribe('my-channel');
 	$allowed = array('jpeg','jpg','gif','png');
 
 	?>
-	
+
 	<li href="#" class="inboxMsg media inboxMsg">
-		
+
 		<a href="../<?= $sender_profile_link; ?>">
 			<?php if(!empty($sender_image)){ ?>
 		   	<img src="<?= $sender_image; ?>" class="rounded-circle mr-3" width="40">
@@ -86,7 +80,7 @@ var channel = pusher.subscribe('my-channel');
 
 	    <div class="media-body">
 	      <h6 class="mt-0 mb-1">
-	      	
+
 	      	<a href="../<?= $sender_profile_link; ?>"><?= $sender_user_name; ?></a>
 	      	<!-- <?= $sender_user_name; ?> -->
 
@@ -97,7 +91,7 @@ var channel = pusher.subscribe('my-channel');
 							|
 							<a href="#" data-toggle="modal" data-target="#report-modal" class="text-muted">
 								<small><i class="fa fa-flag"></i> Report</small>
-							</a> 
+							</a>
 						</small>
 					<?php } ?>
 

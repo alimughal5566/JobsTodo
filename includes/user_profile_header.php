@@ -39,7 +39,7 @@ $level_title = $db->select("seller_levels_meta",["level_id"=>$seller_level,"lang
 $count_proposals = $db->count("proposals",["proposal_seller_id" => $seller_id,"proposal_status" => 'active']);
 
 ?>
-<div class="col-md-12 user-header pl-5 pr-5 pt-5 pb-5" style="background: url(<?= $seller_cover_image; ?>);">
+<div class="col-md-12 user-header pl-5 pr-5 pt-5 pb-5 " style="background: url(<?= $seller_cover_image; ?>); ">
   <?php if(isset($_SESSION['seller_user_name'])){ ?>
   <?php if($_SESSION['seller_user_name'] == $seller_user_name){ ?>
   <a href="settings?profile_settings" class="btn btn-edit btn-success" ><i class="fa fa-pencil"></i> Edit&nbsp;</a>    

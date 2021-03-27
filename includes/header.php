@@ -1,10 +1,10 @@
 <?php
 require_once("db.php");
 require_once("extra_script.php");
-if(!isset($_SESSION['error_array'])){ 
-  $error_array = array(); 
-}else{ 
-  $error_array = $_SESSION['error_array']; 
+if(!isset($_SESSION['error_array'])){
+  $error_array = array();
+}else{
+  $error_array = $_SESSION['error_array'];
 }
 
 if(isset($_SESSION['seller_user_name'])){
@@ -24,8 +24,8 @@ if(isset($_SESSION['seller_user_name'])){
   }
   $row_seller_accounts = $select_seller_accounts->fetch();
   $current_balance = $row_seller_accounts->current_balance;
-  
-  $get_general_settings = $db->select("general_settings");   
+
+  $get_general_settings = $db->select("general_settings");
   $row_general_settings = $get_general_settings->fetch();
   $enable_referrals = $row_general_settings->enable_referrals;
   $count_active_proposals = $db->count("proposals",array("proposal_seller_id"=>$seller_id,"proposal_status"=>'active'));
@@ -79,14 +79,13 @@ if(!isset($_COOKIE['close_announcement']) OR @$_COOKIE['close_announcement'] != 
           </span>
         </div>
       </button>
-      <div class="catnav-search-bar search-browse-wrapper with-catnav">
+       <div class="catnav-search-bar search-browse-wrapper with-catnav">
         <div class="search-browse-inner">
           <form id="gnav-search" class="search-nav expanded-search apply-nav-height" method="post">
             <div class="gnav-search-inner clearable">
               <label for="search-query" class="screen-reader-only">Search for items</label>
               <div class="search-input-wrapper text-field-wrapper">
-                <input id="search-query" class="rounded" name="search_query"
-                  placeholder="<?= $lang['search']['placeholder']; ?>" value="<?= @$_SESSION["search_query"]; ?>"  autocomplete="off">
+                <input id="search-query" class="rounded" name="search_query" placeholder="<?= $lang['search']['placeholder']; ?>" value="<?= @$_SESSION["search_query"]; ?>"  autocomplete="off">
               </div>
               <div class="search-button-wrapper hide">
                 <button class="btn btn-primary" name="search" type="submit" value="Search">
@@ -94,6 +93,11 @@ if(!isset($_COOKIE['close_announcement']) OR @$_COOKIE['close_announcement'] != 
                 </button>
               </div>
             </div>
+
+
+
+
+
             <ul class="search-bar-panel d-none"></ul>
           </form>
         </div>
@@ -124,7 +128,7 @@ if(!isset($_COOKIE['close_announcement']) OR @$_COOKIE['close_announcement'] != 
           <?php if ($deviceType == "phone") { echo $lang['mobile_join_now']; } else { echo $lang['join_now']; } ?>
           </a>
         </li>
-        <?php 
+        <?php
         }else{
           require_once("comp/UserMenu.php");
         }
@@ -145,13 +149,13 @@ if(!isset($_COOKIE['close_announcement']) OR @$_COOKIE['close_announcement'] != 
 </div>
 <?php } ?>
 
-<?php 
+<?php
   if(isset($_SESSION['seller_user_name'])) {
   if($seller_verification != "ok"){
 ?>
 <div class="alert alert-warning clearfix activate-email-class mb-0">
   <div class="float-left mt-2">
-    <i style="font-size: 125%;" class="fa fa-exclamation-circle"></i> 
+    <i style="font-size: 125%;" class="fa fa-exclamation-circle"></i>
     <?php
       $message = $lang['popup']['email_confirm']['text'];
       $message = str_replace('{seller_email}', $seller_email, $message);
@@ -189,14 +193,14 @@ if(!isset($_COOKIE['close_announcement']) OR @$_COOKIE['close_announcement'] != 
     <div class="modal-content">
       <div class="modal-header">
         <!-- modal-header Starts -->
-        <i class="fa fa-user-plus"></i> 
+        <i class="fa fa-user-plus"></i>
         <h5 class="modal-title"> <?= $lang['modals']['register']['title']; ?> </h5>
         <button class="close" data-dismiss="modal"><span>&times;</span></button>
       </div>
       <!-- modal-header Ends -->
       <div class="modal-body">
         <!-- modal-body Starts -->
-        <?php 
+        <?php
           $form_errors = Flash::render("register_errors");
           $form_data = Flash::render("form_data");
           if(is_array($form_errors)){
@@ -247,7 +251,7 @@ if(!isset($_COOKIE['close_announcement']) OR @$_COOKIE['close_announcement'] != 
           <div class="form-group">
             <input type="checkbox" style="position: relative; top: 1px;" id="check" value="1" required=""/>
             <label for="check">
-              I Accept 
+              I Accept
               <a class="text-success" href="<?= $site_url; ?>/terms_and_conditions">Terms And Conditions</a>
             </label>
           </div>
@@ -297,14 +301,14 @@ if(!isset($_COOKIE['close_announcement']) OR @$_COOKIE['close_announcement'] != 
     <div class="modal-content">
       <div class="modal-header">
         <!-- Modal header start -->
-        <i class="fa fa-sign-in fa-log"></i> 
+        <i class="fa fa-sign-in fa-log"></i>
         <h5 class="modal-title"><?= $lang['modals']['login']['title']; ?></h5>
         <button class="close" type="button" data-dismiss="modal"><span>&times;</span></button>
       </div>
       <!-- Modal header end -->
       <div class="modal-body">
         <!-- Modal body start -->
-        <?php 
+        <?php
           $form_errors = Flash::render("login_errors");
           $form_data = Flash::render("form_data");
           if(is_array($form_errors)){

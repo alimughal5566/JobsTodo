@@ -7,6 +7,12 @@
   $login_user_name = $row_login_seller->seller_user_name;
   $login_seller_offers = $row_login_seller->seller_offers;
   $relevant_requests = $row_general_settings->relevant_requests;
+$get_general_settings = $db->select("general_settings");
+$row_general_settings = $get_general_settings->fetch();
+$minimum_profile_percentage = $row_general_settings->minimum_profile_percentage;
+//var_dump( $minimum_profile_percentage); exit();
+
+
 ?>
 
 <style>
@@ -41,7 +47,7 @@
             $i = 0;
             $get_slides = $db->query("select * from slider where language_id='$siteLanguage'");
             while($row_slides = $get_slides->fetch()){
-              $slide_image = getImageUrl("slider",$row_slides->slide_image); 
+              $slide_image = getImageUrl("slider",$row_slides->slide_image);
               $slide_name = $row_slides->slide_name;
               $slide_desc = $row_slides->slide_desc;
               $slide_url = $row_slides->slide_url;
@@ -227,7 +233,9 @@
       <div class="row">
         <?php
 //          $get_proposals = $db->query("select * from proposals where proposal_status='active' order by rand() LIMIT 0,8");
-          $get_proposals = $db->query("SELECT * FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >=65 AND proposals.proposal_status='active' order by rand() LIMIT 0,8");
+//        var_dump( $minimum_profile_percentage ); exit();
+          $get_proposals = $db->query("SELECT * FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >=$minimum_profile_percentage AND proposals.proposal_status='active' order by rand() LIMIT 0,8");
+//        var_dump( $get_proposals); exit();
           $count_proposals = $get_proposals->rowCount();
           if($count_proposals == 0){
               echo "
@@ -305,11 +313,11 @@
         if(count($where_child_id) > 0){
             $query_where = " and (" . implode(" or ", $where_child_id) . ")";
         }
-        
+
         if($relevant_requests == "no"){ $query_where = ""; }
 
         if(!empty($query_where) or $relevant_requests == "no"){
-        
+
         $select_requests =  $db->query("select * from buyer_requests where request_status='active'". $query_where ." AND NOT seller_id='$login_seller_id' order by request_id DESC LIMIT 0,5");
         $requests_count = 0;
         while($row_requests = $select_requests->fetch()){
@@ -319,9 +327,9 @@
                 $requests_count++;
             }
         }
-        
+
         $count_proposals = $db->count("proposals",array("proposal_seller_id"=>$login_seller_id,"proposal_status"=>'active'));
-        
+
         if($requests_count !=0 and !empty($count_proposals)){
 
         ?>

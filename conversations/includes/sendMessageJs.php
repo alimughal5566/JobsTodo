@@ -1,3 +1,4 @@
+<?php @session_start(); ?>
 <script type="text/javascript" src="../../pusher.js"></script>
 <script>
 
@@ -108,7 +109,6 @@ setInterval(function(){
 			$(".typing-status").addClass("invisible");
 			$('.typing-status').html("Dummy Text");
 		}
-
 	});
 }, 500);
 
@@ -122,7 +122,7 @@ setInterval(function(){
 	}).done(function(data){
 		$('.specfic .messages').empty();
 		$('.specfic .messages').append(data);
-		
+
 		if(scroll == 1){
 			height += 2000;
 			$(".col-md-8 .messages").animate({scrollTop: height});

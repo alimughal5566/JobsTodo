@@ -359,7 +359,6 @@ $(document).ready(function(){
 			});
 		}
 		c_notifications_header();
-
 		var c_notifications_body = function(){
 			$.ajax({
 				method: "POST",
@@ -379,7 +378,7 @@ $(document).ready(function(){
 					html += "<div class='mt-2'><center class='pl-2 pr-2'><a href='"+base_url+"/notifications' class='ml-0 btn btn-success btn-block'>"+result.see_all+"</a></center></div>";
 				}
 				$('.notifications-dropdown').html(html);
-				setTimeout(c_notifications_body, 1000);
+				setTimeout(c_notifications_body, 2000);
 			});
 		}
 		c_notifications_body();
