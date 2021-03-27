@@ -232,7 +232,6 @@ function get_random_pagination(){
 
 /// get_tag_proposals Function Starts ///
 function get_tag_proposals(){
-
 	get_proposals("tag");
 
 }

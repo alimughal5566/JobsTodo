@@ -66,12 +66,24 @@ if($insert_offer){
 		$seller_email = $row_seller->seller_email;
 
 		$data = [];
-		$data['template'] = "new_message";
+		
 		$data['to'] = $seller_email;
-		$data['subject'] = "You've received a message from $login_seller_user_name";
+
 		$data['user_name'] = $seller_user_name;
 		$data['sender_user_name'] = $login_seller_user_name;
-		$data['message'] = $message;
+
+
+		if($message){
+            $data['template'] = "new_message";
+            $data['subject'] = "You've received a message from $login_seller_user_name";
+            $data['message'] = $message;
+        }else{
+            $data['template'] = "new_offer_received";
+            $data['message']= "Proposal id: $proposal_id<br>Description : $description<br>  Delivery time: $delivery_time<br> Amount to earn is: $amount";
+            $data['subject'] = ucfirst($login_seller_user_name)." sends you an offer";
+        }
+
+
 		$data['attachment'] = $file;
 		$data['message_date'] = $message_date;
 		$data['message_group_id'] = $message_group_id;

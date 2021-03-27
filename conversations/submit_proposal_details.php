@@ -5,9 +5,9 @@
 require_once("../includes/db.php");
 
 if(!isset($_SESSION['seller_user_name'])){
-	
-echo "<script>window.open('../login','_self')</script>";
-	
+
+    echo "<script>window.open('../login','_self')</script>";
+
 }
 $get_payment_settings = $db->select("payment_settings");
 $min_proposal_price = $row_payment_settings->min_proposal_price;
@@ -40,92 +40,92 @@ $proposal_title = $row_proposals->proposal_title;
 
 <div class="modal-content"><!-- modal-content Starts -->
 
-<div class="modal-header"><!-- modal-header Starts -->
+    <div class="modal-header"><!-- modal-header Starts -->
 
-<h5 class="modal-title"> Specify Your Proposal Details </h5>
+        <h5 class="modal-title"> Specify Your Proposal Details </h5>
 
-<button class="close" data-dismiss="modal">
-<span> &times; </span>
-</button>
+        <button class="close" data-dismiss="modal">
+            <span> &times; </span>
+        </button>
 
-</div><!-- modal-header Ends -->
+    </div><!-- modal-header Ends -->
 
-<div class="modal-body p-0"><!-- modal-body p-0 Starts -->
+    <div class="modal-body p-0"><!-- modal-body p-0 Starts -->
 
-<form id="proposal-details-form"><!--- proposal-details-form Starts --->
+        <form id="proposal-details-form"><!--- proposal-details-form Starts --->
 
-<div class="selected-proposal p-3"><!--- selected-proposal p-3 Starts --->
+            <div class="selected-proposal p-3"><!--- selected-proposal p-3 Starts --->
 
-<h5> <?= $proposal_title; ?> </h5>
+                <h5> <?= $proposal_title; ?> </h5>
 
-<hr>
+                <hr>
 
-<input type="hidden" name="proposal_id" value="<?= $proposal_id; ?>">
+                <input type="hidden" name="proposal_id" value="<?= $proposal_id; ?>">
 
-<input type="hidden" name="receiver_id" value="<?= $receiver_id; ?>">
+                <input type="hidden" name="receiver_id" value="<?= $receiver_id; ?>">
 
-<input type="hidden" name="message" value="<?= $message; ?>">
+                <input type="hidden" name="message" value="<?= $message; ?>">
 
-<input type="hidden" name="file" value="<?= $file; ?>">
+                <input type="hidden" name="file" value="<?= $file; ?>">
 
-<div class="form-group"><!--- form-group Starts --->
+                <div class="form-group"><!--- form-group Starts --->
 
-<label class="font-weight-bold"> Description :  </label>
+                    <label class="font-weight-bold"> Description :  </label>
 
-<textarea name="description" class="form-control" required=""></textarea>
+                    <textarea name="description" class="form-control" required=""></textarea>
 
-</div><!--- form-group Ends --->
+                </div><!--- form-group Ends --->
 
-<hr>
+                <hr>
 
-<div class="form-group"><!--- form-group Starts --->
+                <div class="form-group"><!--- form-group Starts --->
 
-<label class="font-weight-bold"> Delivery Time :  </label>
+                    <label class="font-weight-bold"> Delivery Time :  </label>
 
-<select class="form-control float-right" name="delivery_time">
+                    <select class="form-control float-right" name="delivery_time">
 
-<?php 
-	$get_delivery_times = $db->select("delivery_times");
-	while($row_delivery_times = $get_delivery_times->fetch()){
-		$delivery_proposal_title = $row_delivery_times->delivery_proposal_title;
-		echo "<option value='$delivery_proposal_title'> $delivery_proposal_title </option>";
-	}
-?>
+                        <?php
+                        $get_delivery_times = $db->select("delivery_times");
+                        while($row_delivery_times = $get_delivery_times->fetch()){
+                            $delivery_proposal_title = $row_delivery_times->delivery_proposal_title;
+                            echo "<option value='$delivery_proposal_title'> $delivery_proposal_title</option>";
+                        }
+                        ?>
 
-</select>
+                    </select>
 
-</div><!--- form-group Ends --->
+                </div><!--- form-group Ends --->
 
-<hr>
+                <hr>
 
-<div class="form-group"><!--- form-group Starts --->
+                <div class="form-group"><!--- form-group Starts --->
 
-<label class="font-weight-bold"> Total Offer Amount :  </label>
+                    <label class="font-weight-bold"> Total Offer Amount :  </label>
 
-<div class="input-group float-right">
+                    <div class="input-group float-right">
 
-<span class="input-group-addon font-weight-bold"> <?= $s_currency; ?> </span>
+                        <span class="input-group-addon font-weight-bold"> <?= $s_currency; ?> </span>
 
-<input type="number" name="amount" class="form-control" min="<?php echo $min_proposal_price?>" placeholder="<?php echo $min_proposal_price?> Minimum" required="">
+                        <input type="number" name="amount" class="form-control" min="<?php echo $min_proposal_price?>" placeholder="<?php echo $min_proposal_price?> Minimum" required="">
 
-</div>
+                    </div>
 
-</div><!--- form-group Ends --->
+                </div><!--- form-group Ends --->
 
 
-</div><!--- selected-proposal p-3 Ends --->
+            </div><!--- selected-proposal p-3 Ends --->
 
-<div class="modal-footer"><!--- modal-footer Starts --->
+            <div class="modal-footer"><!--- modal-footer Starts --->
 
-<button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#send-offer-modal">Back</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#send-offer-modal">Back</button>
 
-<button type="submit" class="btn btn-success">Submit Offer</button>
+                <button type="submit" class="btn btn-success">Submit Offer</button>
 
-</div><!--- modal-footer Ends --->
+            </div><!--- modal-footer Ends --->
 
-</form><!--- proposal-details-form Ends --->
+        </form><!--- proposal-details-form Ends --->
 
-</div><!-- modal-body p-0 Ends -->
+    </div><!-- modal-body p-0 Ends -->
 
 </div><!-- modal-content Ends -->
 
@@ -135,48 +135,48 @@ $proposal_title = $row_proposals->proposal_title;
 
 <script>
 
-$(document).ready(function(){
-	
+    $(document).ready(function(){
 
-$("#proposal-details-form").submit(function(event){
-	
-event.preventDefault();
-	
 
-description = $("textarea[name='description']").val();
+        $("#proposal-details-form").submit(function(event){
 
-delivery_time = $("select[name='delivery_time']").val();
+            event.preventDefault();
 
-amount = $("input[name='amount']").val();
 
-if(description == "" | delivery_time == "" | amount == ""){
+            description = $("textarea[name='description']").val();
 
-swal({
-type: 'warning',
-text: 'You Must Need To Fill Out All Fields Before Submitting Offer.'
-});
+            delivery_time = $("select[name='delivery_time']").val();
 
-}else{
+            amount = $("input[name='amount']").val();
 
-$.ajax({
-	
-method: "POST",
-url: "<?= $site_url; ?>/conversations/insert_offer",
-data: $('#proposal-details-form').serialize()
+            if(description == "" | delivery_time == "" | amount == ""){
 
-}).done(function(data){
-	
-$("#submit-proposal-details").modal('hide');
+                swal({
+                    type: 'warning',
+                    text: 'You Must Need To Fill Out All Fields Before Submitting Offer.'
+                });
 
-$("#insert_offer").html(data);
-	
-});
+            }else{
 
-}
-	
-});
+                $.ajax({
 
-	
-});
+                    method: "POST",
+                    url: "<?= $site_url; ?>/conversations/insert_offer",
+                    data: $('#proposal-details-form').serialize()
+
+                }).done(function(data){
+
+                    $("#submit-proposal-details").modal('hide');
+
+                    $("#insert_offer").html(data);
+
+                });
+
+            }
+
+        });
+
+
+    });
 
 </script>
