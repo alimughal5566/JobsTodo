@@ -79,6 +79,7 @@ function get_proposals($filter_type){
     elseif ($filter_type == "random") {
 //      $get_proposals = $db->query("select DISTINCT proposal_seller_id from proposals where proposal_status='active' order by rand()");
         $get_proposals = $db->query("SELECT DISTINCT proposal_seller_id FROM proposals LEFT JOIN sellers ON proposals.proposal_seller_id = sellers.seller_id WHERE sellers.value_health >='$minimum_profile_percentage' AND proposals.proposal_status='active' order by rand()");
+//    var_dump($get_proposals); di
     }
     elseif ($filter_type == "tag") {
         if(isset($_SESSION['tag'])){
