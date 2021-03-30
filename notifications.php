@@ -101,6 +101,8 @@ echo "<script>window.open('notifications','_self')</script>";
 					$date = $row_notifications->date;
 					$status = $row_notifications->status;
 
+
+
 					// Select Sender Details
 					$select_sender = $db->select("sellers",array("seller_id" => $sender_id));
 					$row_sender = $select_sender->fetch();
@@ -142,7 +144,10 @@ echo "<script>window.open('notifications','_self')</script>";
 					</a>
 					</td>
 				</tr>
-			<?php } ?>
+			<?php
+
+                        $db->update("notifications",array("status" => 'read'),array("notification_id" => $notification_id));
+					} ?>
 			</tbody>
 			</table>
       <?php 
@@ -157,6 +162,12 @@ echo "<script>window.open('notifications','_self')</script>";
 		</div>
 	</div>
 </div>
+
+
+
+
+
+
 <?php require_once("includes/footer.php"); ?>
 </body>
 </html>

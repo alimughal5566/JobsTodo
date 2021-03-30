@@ -6,11 +6,13 @@ if(isset($_POST['seller_id'])){
 }
 
 $count_all_notifications =  $db->count("notifications",array("receiver_id" => $seller_id));
+$count_unread_notifications =  $db->count("notifications",array("receiver_id" => $seller_id,'status'=>'unread'));
 $data = array();
 $data['lang']['notifications'] = $lang['popup']['notifications'];
 $data['lang']['view_notifications'] = $lang['popup']['view_notifications'];
 $data['lang']['no_notifications'] = $lang['popup']['no_notifications'];
 $data['count_all_notifications'] = $count_all_notifications;
+$data['count_unread_notifications'] = $count_unread_notifications;
 $data['see_all'] = $lang['see_all'];
 $data['notifications'] = array();
 

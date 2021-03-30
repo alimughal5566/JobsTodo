@@ -31,6 +31,7 @@ data-enable-sound="<?= (isset($_SESSION['seller_user_name']))?$login_seller_enab
 data-enable-notifications="<?= (isset($_SESSION['seller_user_name']))?$login_seller_enable_notifications:'0'; ?>"
 data-disable-messages="<?= (isset($disable_messages))?$disable_messages:'0'; ?>"
 >
+
 </script>
 
 <script type="text/javascript" src="<?= $site_url; ?>/js/categoriesProposal.js"></script>

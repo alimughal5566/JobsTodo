@@ -1,5 +1,4 @@
 <?php
-
 @session_start();
 
 if(isset($_POST['proposal_id'])){
@@ -264,6 +263,8 @@ $(".insert-attribute").on('click', function(event){
           data: { proposal_id: <?= $proposal_id; ?>,fixedPriceOff:1 },
           success:function(show_data){
             $("#pricing").html(show_data);
+              swal({type: 'success',timer:2000,text: 'Adds successfully'});
+              return true;
           }
         });
       });

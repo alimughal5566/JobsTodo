@@ -355,7 +355,7 @@ $(document).ready(function(){
 				}else{
 					$(".c-notifications-header").html("");
 				}
-				setTimeout(c_notifications_header, 1000);
+				setTimeout(c_notifications_header, 2000);
 			});
 		}
 		c_notifications_header();
