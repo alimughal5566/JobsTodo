@@ -1,16 +1,12 @@
 <?php
-
-
 @session_start();
 
 if(!isset($_SESSION['admin_email'])){
-	
 echo "<script>window.open('login','_self');</script>";
 	
 }else{
     
     if(isset($_GET['single_seller'])){
-    	
         $seller_id = $input->get('single_seller');
         $get_seller = $db->select("sellers",array("seller_id" => $seller_id)); 
         $row_seller = $get_seller->fetch();
@@ -19,6 +15,7 @@ echo "<script>window.open('login','_self');</script>";
         $seller_level = $row_seller->seller_level;
         $seller_email = $row_seller->seller_email;
         $seller_image = getImageUrl2("sellers","seller_image",$row_seller->seller_image);
+        $passport_pic = getImageUrl2("sellers","passport_id_image",$row_seller->passport_id_image);
         $seller_about = $row_seller->seller_about;
         $seller_verification = $row_seller->seller_verification;
         $seller_headline = $row_seller->seller_headline;
@@ -215,6 +212,25 @@ echo "<script>window.open('login','_self');</script>";
                 <h5 class="text-muted font-weight-bold">About</h5>
 
                 <p><?= $seller_about; ?></p>
+
+            </div><!--- mb-3 Ends --->
+
+            <div class="mb-3"><!--- mb-3 Starts --->
+
+                <hr class="dotted">
+
+                <h5 class="text-muted font-weight-bold">Passport Picture</h5>
+
+                <!--                <p>--><?//= $passport_pic; ?><!--</p>-->
+                <?php if(!empty($passport_pic)){ ?>
+
+                    <img src="<?= $passport_pic; ?>" class="rounded img-fluid">
+
+                <?php }else{ ?>
+
+                    <img src="../user_images/empty-image.png" class="rounded img-fluid">
+
+                <?php } ?>
 
             </div><!--- mb-3 Ends --->
 
