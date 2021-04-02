@@ -147,40 +147,8 @@
   }
 
 
-  require("footerJs.php"); 
+  require("footerJs.php");
+require_once("includes/ajaxNavJs.php");
 
 ?>
-<script>
 
-
-    // var notificationsPopup = function(){
-    //     $.ajax({
-    //         method: "POST",
-    //         url: base_url+"/includes/notificationsPopup",
-    //         data: {seller_id: seller_id}
-    //     }).done(function(data){
-    //
-    //         result = $.parseJSON(data);
-    //         html = '';
-    //         for(i in result){
-    //             html += "<div class='header-message-div'><a class='float-left' href='"+base_url+"/dashboard?n_id="+result[i].notification_id+"'><img src='"+result[i].sender_image+"' width='50' height='50' class='rounded-circle'><strong class='heading'>"+result[i].sender_user_name+"</strong><p class='message'>"+result[i].message+"</p><p class='date text-muted'>"+result[i].date+"</p></a><a href='#' class='float-right close closePopup btn btn-sm pl-lg-5 pt-0'><i class='fa fa-times'></i></a>"+result[i].more+"</div>";
-    //         }
-    //         $('.messagePopup').prepend(html);
-    //
-    //         setTimeout(notificationsPopup, 5000);
-    //     });
-    // }
-    // notificationsPopup();
-
-
-
-
-
-
-
-
-
-
-
-
-</script>

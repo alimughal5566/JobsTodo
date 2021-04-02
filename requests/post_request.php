@@ -35,8 +35,8 @@ $login_seller_id = $row_login_seller->seller_id;
     <?php } ?>
 </head>
 <body class="is-responsive">
-<?php 
-require_once("../includes/user_header.php"); 
+<?php
+require_once("../includes/user_header.php");
 if($seller_verification != "ok"){
 echo "
 <div class='alert alert-danger rounded-0 mt-0 text-center'>
@@ -54,7 +54,7 @@ Please confirm your email to use this feature.
   </h1>
   <div class="row"><!--- row Starts --->
     <div class="col-xl-8 col-lg-8 post-request col-md-12 ">
-      <?php 
+      <?php
 		$form_errors = Flash::render("form_errors");
 		$form_data = Flash::render("form_data");
 		if(is_array($form_errors)){
@@ -64,7 +64,7 @@ Please confirm your email to use this feature.
         <ul>
           <?php $i = 0; foreach ($form_errors as $error) { $i++; ?>
           <li>
-            <?= $i ?>. 
+            <?= $i ?>.
             <?= ucfirst($error); ?>
           </li>
           <?php } ?>
@@ -92,7 +92,7 @@ Please confirm your email to use this feature.
                     <div class="form-group">
                       <input type="file" name="request_file" id="file" >
                       <div class="font-weight-bold pull-right">
-                        <span class="descCount"> 0 
+                        <span class="descCount"> 0
                         </span> / 380 Max
                       </div>
                     </div>
@@ -115,7 +115,7 @@ Please confirm your email to use this feature.
                         <option value="" class="hidden">
                           <?= $lang['placeholder']['select_category']; ?>
                         </option>
-                        <?php 
+                        <?php
         								$get_cats = $db->select("categories");
         								while($row_cats = $get_cats->fetch()){
           								$cat_id = $row_cats->cat_id;
@@ -123,8 +123,8 @@ Please confirm your email to use this feature.
           								$row_meta = $get_meta->fetch();
           								$cat_title = $row_meta->cat_title;
         								?>
-                        <option value="<?= $cat_id; ?>">  
-                          <?= $cat_title; ?> 
+                        <option value="<?= $cat_id; ?>">
+                          <?= $cat_title; ?>
                         </option>
                         <?php } ?>
                       </select>
@@ -155,11 +155,11 @@ Please confirm your email to use this feature.
       						$delivery_proposal_title = $row_delivery_times->delivery_proposal_title;
       						?>
                   <label class="custom-control custom-radio">
-                    <input type="radio" value="<?= $delivery_proposal_title; ?>" 
+                    <input type="radio" value="<?= $delivery_proposal_title; ?>"
                     <?php if($form_data['delivery_time'] == $delivery_proposal_title){ echo "checked"; } ?> name="delivery_time" class="custom-control-input" required="">
                     <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description"> 
-                      <?= $delivery_proposal_title; ?> 
+                    <span class="custom-control-description">
+                      <?= $delivery_proposal_title; ?>
                     </span>
                   </label>
                   <?php } ?>
@@ -176,8 +176,8 @@ Please confirm your email to use this feature.
                 </div>
                 <div class="col-md-6 col-sm-12 offset-md-1 mt-3">
                   <div class="input-group form-curb">
-                    <span class="input-group-addon font-weight-bold" > 
-                      <?= $s_currency; ?> 
+                    <span class="input-group-addon font-weight-bold" >
+                      <?= $s_currency; ?>
                     </span>
                     <input type="number" name="request_budget" min="5" placeholder="<?= $lang['placeholder']['5_minimum']; ?>" class="form-control input-lg" value="<?= $form_data['request_budget']; ?>" required>
                   </div>
@@ -247,13 +247,13 @@ $(document).ready(function(){
 
 	$("#textarea").keydown(function(){
 	var textarea = $("#textarea").val();
-	$(".descCount").text(textarea.length);	
-	});	
+	$(".descCount").text(textarea.length);
+	});
 
 	$("#sub-category").hide();
 
 	$("#category").change(function(){
-		$("#sub-category").show();	
+		$("#sub-category").show();
 		var category_id = $(this).val();
 		$.ajax({
 			url:"fetch_subcategory",
@@ -305,7 +305,15 @@ if(isset($_POST['submit'])){
 			uploadToS3("request_files/$request_file",$request_file_tmp);
 		}
 		$isS3 = $enable_s3;
-		$insert_request = $db->insert("buyer_requests",array("seller_id"=>$login_seller_id,"cat_id"=>$cat_id,"child_id"=>$child_id,"request_title"=>$request_title,"request_description"=>$request_description,"request_file"=>$request_file,"delivery_time"=>$delivery_time,"request_budget"=>$request_budget,"request_date"=>$request_date,"isS3"=>$isS3,"request_status"=>'pending'));
+        $get_general_settings = $db->select("general_settings");
+        $row_general_settings = $get_general_settings->fetch();
+        $approve_buyer_request = $row_general_settings->approve_buyer_request;
+        if($approve_buyer_request=='1'){
+            $status='active';
+        }else{
+                $status='pending';
+        }
+		$insert_request = $db->insert("buyer_requests",array("seller_id"=>$login_seller_id,"cat_id"=>$cat_id,"child_id"=>$child_id,"request_title"=>$request_title,"request_description"=>$request_description,"request_file"=>$request_file,"delivery_time"=>$delivery_time,"request_budget"=>$request_budget,"request_date"=>$request_date,"isS3"=>$isS3,"request_status"=>$status));
 		if($insert_request){
 			echo "<script>
 			    swal({
@@ -323,6 +331,9 @@ if(isset($_POST['submit'])){
 	}
 }
 ?>
-<?php require_once("../includes/footer.php"); ?>
+
+<?php
+require_once("includes/ajaxNavJs.php");
+require_once("../includes/footer.php"); ?>
 </body>
 </html>

@@ -79,7 +79,7 @@ if($insert_offer){
             $data['message'] = $message;
         }else{
             $data['template'] = "new_offer_received";
-            $data['message']= "Proposal id: $proposal_id<br>Description : $description<br>  Delivery time: $delivery_time<br> Amount to earn is: $amount";
+            $data['message']= "Proposal id: $proposal_id<br>Description : $description<br>  Delivery time: $delivery_time<br> Amount to earn is: €$amount";
             $data['subject'] = ucfirst($login_seller_user_name)." sends you an offer";
         }
 

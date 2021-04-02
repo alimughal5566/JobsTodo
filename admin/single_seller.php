@@ -34,9 +34,7 @@ echo "<script>window.open('login','_self');</script>";
         $get_seller_languages = $db->select("seller_languages",array("language_id" => $seller_language));
         $row_seller_languages = $get_seller_languages->fetch();
         @$language_title = $row_seller_languages->language_title;
-
         $level_title = $db->select("seller_levels_meta",array("level_id"=>$seller_level,"language_id"=>$adminLanguage))->fetch()->title;
-
     }
 
 ?>

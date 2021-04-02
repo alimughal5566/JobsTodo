@@ -136,6 +136,7 @@
 </div>
 <!-- Container ends -->
 <div class="append-modal"></div>
+<?php require_once("../includes/ajaxNavJs.php"); ?>
 <?php require_once("../includes/footer.php"); ?>
 <script>
   function get_category_proposals(){

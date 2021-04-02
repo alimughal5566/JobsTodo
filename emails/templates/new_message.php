@@ -18,7 +18,6 @@
   </table>
 </div>
 <!-- discount_title -->
-	 
 <!-- message -->
 <div class="o_bg-light o_px-xs" align="left" style="background-color: #e8f2e8;padding-left: 8px;padding-right: 8px;">
   <table class="o_block" width="100%" cellspacing="0" cellpadding="0" border="0" role="presentation" style="max-width: 632px;margin: 0 auto;">

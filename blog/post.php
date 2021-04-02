@@ -32,7 +32,7 @@
   <script type="text/javascript" src="../js/jquery.min.js"></script>
 </head>
 <body class="is-responsive blog">
-  
+
   <?php require_once("../includes/header.php"); ?>
 
   <header id="how_to"><!--- how_to Starts --->
@@ -45,7 +45,7 @@
   <br><br>
   <div class="container mb-5"><!--- container Starts --->
     <div class="row"><!--- row Starts --->
-      
+
       <div class="col-md-8 mb-4 <?=($lang_dir == "right" ? 'order-2 order-sm-1':'')?>"><!--- col-md-8 Starts --->
         <?php include("includes/single.php"); ?>
       </div><!--- col-md-8 Ends --->
@@ -56,6 +56,7 @@
 
     </div><!--- row Ends --->
   </div><!--- container Ends --->
+  <?php require_once("../includes/ajaxNavJs.php"); ?>
   <?php require_once("../includes/footer.php"); ?>
 </body>
 </html>

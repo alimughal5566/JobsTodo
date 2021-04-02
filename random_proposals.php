@@ -64,7 +64,8 @@ require_once("functions/functions.php");
 </div><!-- Container ends -->
 
 <div class="append-modal"></div>
-<?php require_once("includes/footer.php"); ?>
+<?php require_once("includes/footer.php");
+   require_once("includes/ajaxNavJs.php");  ?>
 <script>
 function get_random_proposals(){
 	var sPath = '';

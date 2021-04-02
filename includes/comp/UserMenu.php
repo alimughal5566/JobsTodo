@@ -5,16 +5,7 @@ $row_login_seller = $select_login_seller->fetch();
 $login_seller_id = $row_login_seller->seller_id;
 $not_count = $db->count("notifications",array("receiver_id" => $login_seller_id,"status" => 'unread'));
 $message_count = $db->count("inbox_messages",array("message_receiver" => $login_seller_id,"message_status" => 'unread'));
-//var_dump($counts);die();
 ?>
-
-
-
-
-
-
-
-
 <li class="logged-in-link d-none d-sm-block d-md-block d-lg-block">
   <a class="menuItem" href="<?= $site_url; ?>/blog/" title="<?= $lang["blog"]['title']; ?>">
     <span class="gigtodo-icon nav-icon gigtodo-icon-relative">
@@ -35,9 +26,7 @@ $message_count = $db->count("inbox_messages",array("message_receiver" => $login_
   <span class="total-user-count count c-notifications-header" ><?= $not_count ?></span>
   </a>
   <div class="dropdown-menu notifications-dropdown">
-          <h3 class='dropdown-header'>inbox(<?= $not_count?>) <a class='float-right make-black' href='../notifications' style='color:black;'>View notifications</a></h3>
-
-
+          <h3 class='dropdown-header'>inbox(<?= $not_count?>)<a class='float-right make-black' href='../notifications' style='color:black;'>View notifications</a></h3>
 <!--      --><?php //if($not_count>0){
 //
 //          $select_notofications = $db->query("select * from notifications where receiver_id=:r_id order by 1 DESC LIMIT 0,4",array("r_id"=>$login_seller_id));
@@ -69,9 +58,6 @@ $message_count = $db->count("inbox_messages",array("message_receiver" => $login_
 //      else{
 //          ?><!--<h6 class='text-center mt-3'>No notification found</h6>-->
 <!--      --><?php //} ?>
-
-
-
 
   </div>
 </li>

@@ -205,7 +205,6 @@ $month_earnings = $row_seller_accounts->month_earnings;
         <?php
         $get_proposals = $db->select("proposals",array("proposal_seller_id" => $seller_id,"proposal_status" => "active"));
         $count_proposals = $get_proposals->rowCount();
-
         if($count_proposals == 0){
         ?>
 

@@ -588,20 +588,20 @@ if(!isset($_SESSION['admin_email'])){
                                 </div>
                             </div>
                             <!--- form-group row Ends --->
-                    </div>
-
-                    <!--- form-group row Ends --->
-                    <div class="form-group row">
-                        <!--- form-group row Starts --->
-                        <label class="col-md-3 control-label ml-3">Minimum profile percentage : </label>
-                        <div class="col-md-6">
-                            <input name="minimum_profile_percentage" type="number" class="form-control" min="1" max="100" required=""  step=".01" value="<?= $minimum_profile_percentage ?>" />
-                        </div>
-                    </div>
-                    <!--- form-group row Ends --->
 
 
-                    <div class="form-group row">
+                            <!--- form-group row Ends --->
+                            <div class="form-group row">
+                                <!--- form-group row Starts --->
+                                <label class="col-md-3 control-label ml-3">Minimum profile percentage : </label>
+                                <div class="col-md-6">
+                                    <input name="minimum_profile_percentage" type="number" class="form-control" min="1" max="100" required=""  step=".01" value="<?= $minimum_profile_percentage ?>" />
+                                </div>
+                            </div>
+                            <!--- form-group row Ends --->
+
+
+                            <div class="form-group row">
                                 <!--- form-group row Starts --->
                                 <label class="col-md-3 control-label"></label>
                                 <div class="col-md-6">

@@ -9,6 +9,7 @@ $select_login_seller = $db->select("sellers",array("seller_user_name" => $login_
 $row_login_seller = $select_login_seller->fetch();
 $login_seller_id = $row_login_seller->seller_id;
 $login_seller_vacation = $row_login_seller->seller_vacation;
+$is_verified_passport= $row_login_seller->is_verified_passport;
 ?>
 <!DOCTYPE html>
 <html lang="en" class="ui-toolkit">
@@ -43,6 +44,7 @@ $login_seller_vacation = $row_login_seller->seller_vacation;
 </head>
 <body class="is-responsive">
 <?php require_once("../includes/user_header.php"); ?>
+<?php require_once("../includes/ajaxNavJs.php"); ?>
 <div class="container-fluid view-proposals"><!-- container-fluid view-proposals Starts -->
 <div class="row"><!-- row Starts -->
 <div class="col-md-12 mt-5 mb-3"><!-- col-md-12 mt-5 mb-3 Starts -->
@@ -89,11 +91,12 @@ $login_seller_vacation = $row_login_seller->seller_vacation;
             });
         </script>
 </div>
-<div class="append-modal"></div>
-		<div class="col-md-12">
-			<a href="create_proposal" class="btn btn-success pull-right">
-            <i class="fa fa-plus-circle"></i> <?= $lang['button']['add_new_proposal']; ?>
-			</a>
+    <div class="append-modal"></div>
+    <div class="col-md-12"><?php if($is_verified_passport=='Approved'){ ?>
+            <a href="create_proposal" class="btn btn-success pull-right">
+                <i class="fa fa-plus-circle"></i> <?= $lang['button']['add_new_proposal']; ?>
+            </a>
+        <?php }?>
 			<div class="clearfix"></div>
 			<ul class="nav nav-tabs flex-column flex-sm-row mt-4">
             <?php

@@ -80,11 +80,7 @@
 
 				 	</a>
 
-				 	<div class="dropdown-menu messages-dropdown" style="width:135% !important; position:relative;">
-
-					
-
-				 	</div>
+				 	<div class="dropdown-menu messages-dropdown" style="width:135% !important; position:relative;"></div>
 				 
           </li><br>
 

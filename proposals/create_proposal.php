@@ -197,7 +197,9 @@ $(document).ready(function(){
 
 <?php } ?>
 
-<?php require_once("../includes/footer.php"); ?>
+<?php
+require_once("../includes/ajaxNavJs.php");
+require_once("../includes/footer.php"); ?>
 <script src="../js/tagsinput.js"></script>
 
 </body>

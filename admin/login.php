@@ -127,18 +127,17 @@ $_SESSION['adminLanguage'] = 1;
                         <div class="form-group">
 
                             <label>Email</label>
-
                             <input type="text" class="input form-control"
                                    value="<?php if (isset($_SESSION["r_email"])) {
                                        echo $_SESSION["r_email"];
+                                   } else{
+                                       echo $_POST["admin_email"];
                                    } ?>" placeholder="Email or Username" name="admin_email">
 
                         </div>
 
                         <div class="form-group">
-
                             <label>Password</label>
-
                             <input type="password" class="pass form-control"
                                    value="<?php if (isset($_SESSION["r_passoword"])) {
                                        echo $_SESSION["r_passoword"];
@@ -229,7 +228,7 @@ if (isset($_POST['admin_login'])) {
         echo "<script>
       swal({
          type: 'warning',
-         text: 'Opps! password or username is incorrect. Please try again.',
+         text: 'Opps! password or username is incorrect. Please try again7.',
       });
     </script>";
 

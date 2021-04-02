@@ -177,19 +177,27 @@ if(isset($_POST['login'])){
 		@$seller_user_name = $row_seller->seller_user_name;
 		@$seller_status = $row_seller->seller_status;
 		$decrypt_password = password_verify($seller_pass, $hashed_password);
-		
-		if($decrypt_password == 0){
-			echo "
+
+        if($decrypt_password == 0){
+            echo "
+               <script src=\"//code.jquery.com/jquery-1.11.0.min.js\"></script>
 			<script>
+//			$(window).load(function() {
+//            $('#login-modal').modal();
+//            });
+			
         swal({
           type: 'warning',
           html: $('<div>').text('{$lang['alert']['incorrect_login']}'),
           animation: false,
-          customClass: 'animated tada'
-        })
+          customClass: 'animated tada',
+          timer: 1000,
+        }).then((result) => {
+            $('#login-modal').modal();                        
+    });
 	    </script>
 			";
-		}else{
+        }else{
 			if($seller_status == "block-ban"){
 				echo "
 				<script>
