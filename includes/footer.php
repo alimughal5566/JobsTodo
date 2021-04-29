@@ -148,7 +148,22 @@
 
 
   require("footerJs.php");
-require_once("includes/ajaxNavJs.php");
+require_once("includes/ajaxNavJs.php") ;
+
+$select_seller = $db->select("sellers", array("seller_user_name" => $_SESSION['seller_user_name']));
+$seller_id = $select_seller->fetch()->seller_id;
 
 ?>
+
+<script src="js/customjs.js"></script>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script>
+    // alert();
+    Pusher.logToConsole = true;
+    var pusher = new Pusher('ad6a3e54ebdd15a3f395', {
+        cluster: 'ap2'
+    });
+    var channel = pusher.subscribe('my-channel');
+
+</script>
 

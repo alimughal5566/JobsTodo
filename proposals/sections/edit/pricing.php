@@ -56,7 +56,7 @@ $d_delivery_id = $row_proposal->delivery_id;
     <span class="input-group-addon font-weight-bold">
     <?= $s_currency; ?>
     </span>
-    <input type="number" class="form-control" form="pricing-form" name="proposal_price" min="<?= $min_proposal_price; ?>" value="<?= $d_proposal_price; ?>">
+    <input type="number" class="form-control" form="pricing-form" name="proposal_price" min="<?= $min_proposal_price; ?>" value="<?= ($d_proposal_price)?$d_proposal_price:15; ?>">
     </div>
     <small><?= $lang['edit_proposal']['pricing']['warning1']; ?></small>
   </div>

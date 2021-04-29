@@ -58,6 +58,7 @@ require("includes/inboxFunctions.php");
 <div id="send-offer-div"></div>
 
 <?php require_once("includes/javascript.php"); ?>
-<?php require_once("../includes/footerInbox.php"); ?>
+<?php require_once("../includes/footerInbox.php");
+require_once("../includes/ajaxNavJs.php");  ?>
 </body>
 </html>

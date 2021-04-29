@@ -360,9 +360,9 @@ $(document).ready(function(){
       $('.proposal-price').show();
       $('.proposal-price input[name="proposal_price"]').attr('min',<?= $min_proposal_price; ?>);
 
-      $('.packages input[name="proposal_packages[1][price]"]').attr('min',0);
-      $('.packages input[name="proposal_packages[2][price]"]').attr('min',0);
-      $('.packages input[name="proposal_packages[3][price]"]').attr('min',0);
+      // $('.packages input[name="proposal_packages[1][price]"]').attr('min',0);
+      // $('.packages input[name="proposal_packages[2][price]"]').attr('min',0);
+      // $('.packages input[name="proposal_packages[3][price]"]').attr('min',0);
 
     }else{
       $('.packages').show();
@@ -370,9 +370,9 @@ $(document).ready(function(){
       $('.proposal-price').hide();
       $('.proposal-price input[name="proposal_price"]').attr('min',0);
       
-      $('.packages input[name="proposal_packages[1][price]"]').attr('min',<?= $min_proposal_price; ?>);
-      $('.packages input[name="proposal_packages[2][price]"]').attr('min',<?= $min_proposal_price; ?>);
-      $('.packages input[name="proposal_packages[3][price]"]').attr('min',<?= $min_proposal_price; ?>);
+      //$('.packages input[name="proposal_packages[1][price]"]').attr('min',<?//= $min_proposal_price; ?>//);
+      //$('.packages input[name="proposal_packages[2][price]"]').attr('min',<?//= $min_proposal_price; ?>//);
+      //$('.packages input[name="proposal_packages[3][price]"]').attr('min',<?//= $min_proposal_price; ?>//);
 
     }
   });

@@ -153,15 +153,14 @@ if($enable_unlimited_revisions == 1){
 		<tr>
 			<td>Price</td>
 			<td class="p-0">
-
-			<input type="number" min='<?= $min_proposal_price; ?>' required name="proposal_packages[1][price]" form="pricing-form" value="<?= $row_1->price; ?>" class="form-control">
+                <input type="number" min='16' required name="proposal_packages[1][price]" form="pricing-form" value="<?= $row_1->price; ?>" class="form-control">
 			</td>
 			<td class="p-0">
-			<input type="number" min='<?= $min_proposal_price; ?>' required name="proposal_packages[2][price]" form="pricing-form" value="<?= $row_2->price; ?>" class="form-control">
+			<input type="number" min='16' required name="proposal_packages[2][price]" form="pricing-form" value="<?= $row_2->price; ?>" class="form-control">
 			</td>
 			<td class="p-0">
 
-			<input type="number" min='5' required name="proposal_packages[3][price]" form="pricing-form" value="<?= $row_3->price; ?>" class="form-control">
+			<input type="number" min='16' required name="proposal_packages[3][price]" form="pricing-form" value="<?= $row_3->price; ?>" class="form-control">
 			</td>
 		</tr>
 	</form>

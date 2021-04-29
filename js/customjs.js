@@ -1,4 +1,16 @@
+
+
+// // // alert();
+// Pusher.logToConsole = true;
+// var pusher = new Pusher('ad6a3e54ebdd15a3f395', {
+// 	cluster: 'ap2'
+// });
+// var channel = pusher.subscribe('my-channel');
+
+
 $(document).ready(function(){
+
+
 	var base_url = $("#custom-js").data("base-url");
 	var seller_id = $("#custom-js").data("logged-id");
 	var enable_sound = $("#custom-js").data("enable-sound");
@@ -74,7 +86,6 @@ $(document).ready(function(){
 		nav:true,
 		autoplaySpeed:1000,
 		responsiveClass:true,
-
 	});
 
 	$('[data-toggle="tooltip"]').tooltip();
@@ -150,6 +161,7 @@ $(document).ready(function(){
 			event.preventDefault();
 		}
 	});
+
 	$("#search-query").keyup(function(e){
 		var val = $(this).val();
 		if(val != ""){
@@ -293,13 +305,14 @@ $(document).ready(function(){
 				if(data > 0){
 					$(".c-favorites").html(data);
 				}else{ $(".c-favorites").html(""); }
-				setTimeout(c_favorites, 3000);
+				setTimeout(c_favorites, 4000);
 			});
 		}
 		c_favorites();
 
 		// c_messages_header
 		var c_messages_header = function(){
+			// alert();
 			$.ajax({
 				method: "POST",
 				url: base_url+"/includes/comp/c-messages-header",
@@ -310,9 +323,10 @@ $(document).ready(function(){
 				}else{
 					$(".c-messages-header").html("");
 				}
-			/*	setTimeout(c_messages_header, 1000);*/
+				/*	setTimeout(c_messages_header, 1000);*/
 			});
 		}
+
 		channel.bind('my-event', function(dataa) {
 			c_messages_header();
 		});
@@ -339,12 +353,14 @@ $(document).ready(function(){
 				// setTimeout(c_messages_body, 1000);
 			});
 		}
+
 		channel.bind('my-event', function(dataa) {
 			c_messages_body();
 		});
 
 
 		var c_notifications_header = function(){
+
 			$.ajax({
 				method: "POST",
 				url: base_url+"/includes/comp/c-notifications-header",
@@ -355,17 +371,17 @@ $(document).ready(function(){
 				}else{
 					$(".c-notifications-header").html("");
 				}
-				setTimeout(c_notifications_header, 3000);
+				setTimeout(c_notifications_header, 4000);
 			});
 		}
 		c_notifications_header();
+
 		var c_notifications_body = function(){
 			$.ajax({
 				method: "POST",
 				url: base_url+"/includes/comp/c-notifications-body",
 				data: {seller_id: seller_id}
 			}).done(function(data){
-
 				result = $.parseJSON(data);
 				notifications = result.notifications;
 				html = "<h3 class='dropdown-header'> "+result['lang'].notifications+" ("+result.count_all_notifications+") <a class='float-right make-black' href='"+base_url+"/notifications' style='color:black;'>"+result['lang'].view_notifications+"</a></h3>";
@@ -379,7 +395,7 @@ $(document).ready(function(){
 					html += "<div class='mt-2'><center class='pl-2 pr-2'><a href='"+base_url+"/notifications' class='ml-0 btn btn-success btn-block'>"+result.see_all+"</a></center></div>";
 				}
 				$('.notifications-dropdown').html(html);
-				setTimeout(c_notifications_body, 3000);
+				setTimeout(c_notifications_body, 4000);
 			});
 		}
 		c_notifications_body();
@@ -408,6 +424,7 @@ $(document).ready(function(){
 
 
 		var notificationsPopup = function(){
+			// alert();
 			$.ajax({
 				method: "POST",
 				url: base_url+"/includes/notificationsPopup",
@@ -424,12 +441,13 @@ $(document).ready(function(){
 					}
 					$('.messagePopup').prepend(html);
 				}
-				setTimeout(notificationsPopup, 2000);
+				setTimeout(notificationsPopup, 4000);
 				setTimeout(stop_audio, 2000);
 			});
 		}
+		// channel.bind('my-event', function(dataa) {
 		notificationsPopup();
-		// Ajax Requests Code Ends ////
+		// });
 
 
 	}
