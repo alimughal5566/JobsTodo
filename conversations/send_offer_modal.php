@@ -31,7 +31,7 @@ $proposal_img1 = getImageUrl2("proposals","proposal_img1",$row_proposals->propos
 <div class="proposal-picture"><!--- proposal-picture Starts --->
 <input type="radio" id="radio-<?= $proposal_id; ?>" class="radio-custom" name="proposal_id" value="<?= $proposal_id; ?>" required>
 <label for="radio-<?= $proposal_id; ?>" class="radio-custom-label"> </label>
-<img src="<?= $proposal_img1; ?>" width="50" height="50">
+<img src="<?= $proposal_img1; ?>" width="50" height="50" alt="">
 </div><!--- proposal-picture Ends --->
 <div class="proposal-title"><!--- proposal-title Starts --->
 <p><?= $proposal_title; ?></p>

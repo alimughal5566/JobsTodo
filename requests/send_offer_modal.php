@@ -54,7 +54,7 @@ $request_seller_image = $row_request_seller->seller_image;
                     
                 <?php if(!empty($request_seller_image)){ ?>
                     
-                     <img src="<?= $site_url; ?>/user_images/<?= $request_seller_image; ?>" width="50" height="50" class="rounded-circle">
+                     <img src="<?= $site_url; ?>/user_images/<?= $request_seller_image; ?>" width="50" height="50" class="rounded-circle" alt="">
 
 				<?php }else{ ?>
 

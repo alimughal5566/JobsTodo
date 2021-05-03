@@ -72,10 +72,10 @@
         </nav>
         <?php
         for($proposal_i=0; $proposal_i<$proposal_rating; $proposal_i++){
-        echo " <img class='mb-1' src='../../images/user_rate_full.png' > ";
+        echo " <img  alt='' class='mb-1' src='../../images/user_rate_full.png' > ";
         }
         for($proposal_i=$proposal_rating; $proposal_i<5; $proposal_i++){
-        echo " <img class='mb-1' src='../../images/user_rate_blank.png' > ";
+        echo " <img alt='' class='mb-1' src='../../images/user_rate_blank.png' > ";
         }
         ?>
         <span class="text-muted span"> (<?= $count_reviews; ?>) &nbsp;<?= $proposal_order_queue; ?> Order(s) In Queue.</span>

@@ -152,16 +152,16 @@ if($enable_unlimited_revisions == 1){
 
 		<tr>
 			<td>Price</td>
-			<td class="p-0">
-                <input type="number" min='16' required name="proposal_packages[1][price]" form="pricing-form" value="<?= $row_1->price; ?>" class="form-control">
-			</td>
-			<td class="p-0">
-			<input type="number" min='16' required name="proposal_packages[2][price]" form="pricing-form" value="<?= $row_2->price; ?>" class="form-control">
-			</td>
-			<td class="p-0">
+            <td class="p-0">
+                <input type="number" min='<?= ($row_1->price)?$row_1->price:$min_proposal_price;; ?>' required name="proposal_packages[1][price]" form="pricing-form" value="<?= ($row_1->price)?$row_1->price:$min_proposal_price; ?>" class="form-control">
+            </td>
+            <td class="p-0">
+                <input type="number" min='<?= ($row_2->price)?$row_2->price:$min_proposal_price; ?>' required name="proposal_packages[2][price]" form="pricing-form" value="<?= ($row_2->price)?$row_2->price:$min_proposal_price; ?>" class="form-control">
+            </td>
+            <td class="p-0">
+                <input type="number" min='<?= ($row_3->price)?$row_3->price:$min_proposal_price; ?>' required name="proposal_packages[3][price]" form="pricing-form" value="<?= ($row_3->price)?$row_3->price:$min_proposal_price; ?>" class="form-control">
+            </td>
 
-			<input type="number" min='16' required name="proposal_packages[3][price]" form="pricing-form" value="<?= $row_3->price; ?>" class="form-control">
-			</td>
 		</tr>
 	</form>
 </tbody>

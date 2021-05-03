@@ -724,7 +724,7 @@ if(!isset($_SESSION['admin_email'])){
                             <!--- form-group row Ends --->
 
                             <div class="form-group row"><!--- form-group row Starts --->
-                                <label class="col-md-3 control-label"> Manually Approve Proposals : </label>
+                                <label class="col-md-3 control-label">Auto Approve Proposals : </label>
                                 <div class="col-md-6">
                                     <select name="approve_proposals" class="form-control" required="">
                                         <?php if($approve_proposals == "yes"){ ?>
@@ -739,7 +739,7 @@ if(!isset($_SESSION['admin_email'])){
                                 </div>
                             </div><!--- form-group row Ends --->
                             <div class="form-group row"><!--- form-group row Starts --->
-                                <label class="col-md-3 control-label"> Manually Approve Buyer Requests: </label>
+                                <label class="col-md-3 control-label">Auto Approve Buyer Requests: </label>
                                 <div class="col-md-6">
                                     <select name="approve_buyer_request" class="form-control" required="">
                                         <?php if($approve_buyer_request == 1){ ?>
